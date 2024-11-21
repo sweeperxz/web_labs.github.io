@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Мої друзі</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<h1>Мої друзі - Мої одногрупники</h1>
+
+<div class="friend" onmouseout="hideTooltip()"
+     onmouseover="showTooltip(event, 'Це Роман. Він любить індивідуальний графік.')">
+    <img alt="Роман" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO7lVRsJLiZoGV4XCDSBHNXWy36ZybTT8fMw&s">
+    <p>Роман</p>
+</div>
+
+<div class="friend" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'Це Артем. Він захоплюється спортом.')">
+    <img alt="Артем" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvp8o7OY0to9qEzv711wLYMnkX6oHYSBp9Tg&s">
+    <p>Артем</p>
+</div>
+
+<div class="friend" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'Це Дмитро. Він полюбляє керувати.')">
+    <img alt="Дмитро" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Foreign_Minister_of_Ukraine_Dmytro_Kuleba_in_Munich%2C_Germany_on_17_February_2024_%28cropped%29.jpg/250px-Foreign_Minister_of_Ukraine_Dmytro_Kuleba_in_Munich%2C_Germany_on_17_February_2024_%28cropped%29.jpg">
+    <p>Дмитро</p>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>function showTooltip(event, text) {
+    const tooltip = document.getElementById('tooltip');
+    tooltip.innerText = text;
+    tooltip.style.display = 'block';
+    tooltip.style.left = event.pageX + 'px';
+    tooltip.style.top = event.pageY + 'px';
+}
+
+function hideTooltip() {
+    const tooltip = document.getElementById('tooltip');
+    tooltip.style.display = 'none';
+}</script>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <title>Вміст рядка, що біжить</title>
+    <style>
+        body {
+            background-image: url("https://img.freepik.com/premium-photo/abstract-black-background-dark-background-black-background-dark-background_900706-26858.jpg");
+            background-size: cover;
+            background-position: center;
+            color: #214518;
+            font-family: "Arial", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        p {
+            text-align: center;
+            margin: 0;
+            padding-top: 5vh;
+        }
+
+        marquee {
+            display: block;
+            margin: 20px auto;
+            height: 70px;
+            line-height: 70px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        marquee font {
+            display: inline-block;
+        }
+
+        .alternate {
+            background-color: rgba(186, 4, 4, 0.8);
+            color: #ba8a37;
+            border: 2px solid #9a9353;
+        }
+
+        .right {
+            background-color: rgba(0, 126, 255, 0.8);
+            color: #801414;
+            border: 2px solid rgba(255, 210, 17, 0.42);
+        }
+
+        .slide {
+            background-color: rgba(230, 217, 0, 0.8);
+            color: #008000;
+            border: 2px solid #008000;
+        }
+
+        .slow {
+            background-color: rgba(255, 153, 102, 0.8);
+            color: #ff00ff;
+            border: 2px solid #ff00ff;
+        }
+
+        .fast {
+            background-color: rgba(153, 255, 153, 0.8);
+            color: #0000ff;
+            border: 2px solid #0000ff;
+        }
+    </style>
+</head>
+<body>
+<p>
+    <marquee behavior="alternate" direction="left" class="alternate">
+        <font face="Trattatello" size="5">Текст у рядку коливається з боку в бік</font>
+    </marquee>
+
+    <marquee direction="right" class="right">
+        <font face="Arial Black" size="5">Текст пробігає справа наліво та з’являється знову</font>
+    </marquee>
+
+    <marquee direction="left" loop="1" class="slide">
+        <font face="Ayuthaya" size="5">Текст у рядку пробігає зліва направо та зупиняється</font>
+    </marquee>
+
+    <marquee scrollamount="5" class="slow">
+        <font face="Baghdad" size="6">Повільний</font>
+    </marquee>
+
+    <marquee scrollamount="15" class="fast">
+        <font face="BIPs" size="7">Швидкий</font>
+    </marquee>
+</p>
+</body>
+</html>
