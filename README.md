@@ -1,3 +1,3 @@
-# first
+# Web LABS
 
-https://nupp.edu.ua/
+HOME PAGE -> https://sweeperxz.github.io/web_labs.github.io/index.html
