@@ -1,0 +1,85 @@
+/* Загальний стиль для сторінок */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url('images/background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    color: #333; /* Основний колір тексту */
+    line-height: 1.6;
+}
+
+/* Контейнер для контенту */
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.9); /* Напівпрозорий фон */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Заголовки */
+h1 {
+    font-weight: bold;
+    text-align: center;
+    color: #4CAF50; /* Насичений зелений */
+    font-style: normal;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Абзаци */
+p {
+    text-indent: 30px; /* Червоний рядок */
+    text-align: justify;
+    margin: 10px 20px;
+    font-style: italic;
+    font-size: 18px; /* Збільшений розмір тексту */
+}
+
+/* Посилання */
+a:link {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:visited {
+    color: #9C27B0; /* Фіолетовий для відвіданих посилань */
+}
+
+a:hover {
+    color: #FF5722;
+    text-decoration: underline;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Зображення */
+img {
+    display: block;
+    margin: 20px auto;
+    max-width: 100%;
+    border: 5px solid #4CAF50;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Додатковий стиль для футера */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 14px;
+    border-radius: 0 0 10px 10px;
+    margin-top: 20px;
+}

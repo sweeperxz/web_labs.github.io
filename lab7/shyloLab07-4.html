@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Замовлення на товар</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="form-container">
+<h2>Форма замовлення на товар</h2>
+
+
+<form action="#" method="POST">
+    <label for="account-number">Номер банківського рахунку:</label>
+    <input id="account-number" name="account-number" required type="text"><br><br>
+    <label for="user-id">Особистий номер користувача:</label>
+    <input id="user-id" name="user-id" required type="text"><br><br>
+
+    <label for="products">Виберіть товар(и):</label><br>
+    <select id="products" multiple name="products[]">
+        <option value="laptop">Gaming Laptop Asus ROG</option>
+        <option value="smartphone">iPhone 14 Pro</option>
+        <option value="smartwatch">Apple Watch Series 8</option>
+        <option value="headphones">Sony WH-1000XM4</option>
+        <option value="tablet">iPad Pro 12.9</option>
+        <option value="console">PlayStation 5</option>
+    </select><br><br>
+
+    <label for="comments">Ваші коментарі:</label><br>
+    <textarea cols="50" id="comments" name="comments" rows="4"></textarea><br><br>
+
+    <label>Виберіть вид оплати:</label><br>
+    <input id="cash" name="payment-method" type="radio" value="cash">
+    <label for="cash">Готівковий розрахунок</label><br>
+    <input id="non-cash" name="payment-method" type="radio" value="non-cash">
+    <label for="non-cash">Безготівковий розрахунок</label><br><br>
+
+    <label>Яку додаткову інформацію ви хочете отримати:</label><br>
+    <input id="balance" name="additional-info" type="checkbox" value="balance">
+    <label for="balance">Дані про залишки на рахунку</label><br>
+    <input id="payments" name="additional-info" type="checkbox" value="payments">
+    <label for="payments">Список останніх виплат по рахунку</label><br><br>
+
+    <input type="submit" value="Надіслати замовлення">
+</form>
+</div>
+</body>
+</html>

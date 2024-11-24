@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Анкета</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="form-container">
+    <form action="#" method="post">
+        <table>
+            <tr>
+                <th colspan="2">Анкета</th>
+            </tr>
+            <tr>
+                <td>1. Прізвище</td>
+                <td><input name="lastname" required type="text"></td>
+            </tr>
+            <tr>
+                <td>2. Ім'я, по батькові</td>
+                <td><input name="fullname" required type="text"></td>
+            </tr>
+            <tr>
+                <td>3. Число і рік народження</td>
+                <td><input name="birthdate" required type="text"></td>
+            </tr>
+            <tr>
+                <td>4. Домашня адреса</td>
+                <td><input name="address" required type="text"></td>
+            </tr>
+            <tr>
+                <td>5. Місце навчання (роботи)</td>
+                <td><input name="education_workplace" required type="text"></td>
+            </tr>
+            <tr>
+                <td>6. Домашній (робочий) телефон</td>
+                <td><input name="phone" required type="text"></td>
+            </tr>
+            <tr>
+                <td>7. E-mail</td>
+                <td><input name="email" required type="email"></td>
+            </tr>
+            <tr>
+                <td>8. Область наукових інтересів</td>
+                <td>
+                    <textarea name="interests" required></textarea>
+                </td>
+            </tr>
+            <tr class="submit-btns">
+                <td colspan="2">
+                    <input type="reset" value="Відмінити введення">
+                    <input type="submit" value="Надіслати дані та перейти до 2 етапу реєстрації">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
