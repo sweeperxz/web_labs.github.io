@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Адаптивний макет</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Стиль для блоку #1 */
+    .block-1 {
+      background-color: #4a90e2; /* синій фон */
+      border: 1px solid #d3d3d3; /* сіра рамка */
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Стиль для блоку #2 */
+    .block-2 {
+      background-color: #f5a623; /* жовтий фон */
+      border: 1px solid #d3d3d3; /* сіра рамка */
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Стиль для блоку #3 */
+    .block-3 {
+      background-color: #d0021b; /* червоний фон */
+      border: 1px solid #d3d3d3; /* сіра рамка */
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <!-- Блок #1 - займає 6 колонок на великих екранах, 12 на менших -->
+    <div class="col-lg-6 col-md-12 block-1">
+      #1
+    </div>
+    <!-- Блок #2 - займає 3 колонки на великих екранах, 6 на середніх, 12 на менших -->
+    <div class="col-lg-3 col-md-6 col-sm-12 block-2">
+      #2
+    </div>
+    <!-- Блок #3 - займає 3 колонки на великих екранах, 6 на середніх, 12 на менших -->
+    <div class="col-lg-3 col-md-6 col-sm-12 block-3">
+      #3
+    </div>
+  </div>
+</div>
+</body>
+</html>

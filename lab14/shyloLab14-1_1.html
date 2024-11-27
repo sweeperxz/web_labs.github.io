@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адаптивна сторінка</title>
+    <!-- Підключення стилів Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Стилі для шапки і підвалу */
+        .header, .footer {
+            background-color: #f0e68c; /* Бежевий колір для шапки і підвалу */
+        }
+        .header .left, .footer .left {
+            color: blue; /* Синій текст для лівої частини */
+        }
+        .header .right, .footer .right {
+            color: red; /* Червоний текст для правої частини */
+        }
+        .content, .menu {
+            border: 1px solid #d3d3d3; /* Світло-сіра рамка */
+        }
+        .content {
+            min-height: 200px; /* Мінімальна висота контенту */
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Шапка сторінки -->
+        <div class="row header py-2">
+            <div class="col-6 text-center left">
+                Ліва частина шапки
+            </div>
+            <div class="col-6 text-center right">
+                Права частина шапки
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3 menu text-center py-2">
+                Ліве меню
+            </div>
+            <div class="col-6 content text-center py-2">
+                Контент
+            </div>
+            <div class="col-3 menu text-center py-2">
+                Праве меню
+            </div>
+        </div>
+
+        <div class="row footer py-2">
+            <div class="col-6 text-center left">
+                Ліва частина підвалу
+            </div>
+            <div class="col-6 text-center right">
+                Права частина підвалу
+            </div>
+        </div>
+    </div>
+</body>
+</html>
