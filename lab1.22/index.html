@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота 1.22 - JavaScript Функції</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .task {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .task h2 {
+            margin-top: 0;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+
+        .task-description {
+            margin-bottom: 15px;
+        }
+
+        .solution {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .solution h3 {
+            margin-top: 0;
+            color: #3498db;
+        }
+
+        pre {
+            background-color: #34495e;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        .output {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .output-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #3498db;
+        }
+
+        .test-inputs {
+            margin-top: 15px;
+        }
+
+        input, button {
+            padding: 8px;
+            margin-right: 5px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            text-align: center;
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Лабораторна робота 1.22 - JavaScript Функції</h1>
+
+    <div id="task-container">
+        <!-- Завдання будуть додані через JavaScript -->
+    </div>
+
+    <a href="../index.html" class="back-link">Повернутися на головну</a>
+
+    <script>
+        // Завдання та їх рішення
+        const tasks = [
+            {
+                id: 1,
+                title: "Функція seconds",
+                description: "Напишіть функцію seconds, яка приймає числовий параметр total і повертає залишок від ділення числа total на 60.",
+                code: `function seconds(total) {
+    return total % 60;
+}`,
+                testInputs: [
+                    { inputs: [125], expectedOutput: "5" },
+                    { inputs: [60], expectedOutput: "0" },
+                    { inputs: [61], expectedOutput: "1" }
+                ],
+                solution: function seconds(total) {
+                    return total % 60;
+                }
+            },
+            {
+                id: 2,
+                title: "Функція perimeter",
+                description: "Напишіть функцію perimeter, яка підраховує периметр правильного багатокутника. Перший параметр функції - side, довжина сторони, другий параметр - count, кількість сторін в багатокутнику (P=n*a).",
+                code: `function perimeter(side, count) {
+    return side * count;
+}`,
+                testInputs: [
+                    { inputs: [5, 4], expectedOutput: "20" },
+                    { inputs: [1, 3], expectedOutput: "3" },
+                    { inputs: [2, 6], expectedOutput: "12" }
+                ],
+                solution: function perimeter(side, count) {
+                    return side * count;
+                }
+            },
+            {
+                id: 3,
+                title: "Функція fizzBuzz",
+                description: "Напишіть функцію, що виводить в консоль числа від 1 до n, де n - це ціле число, яка функція приймає як параметр, з такими умовами:<br>- виводить fizz замість чисел, кратних 3;<br>- виводить buzz замість чисел, кратних 5;<br>- виводить fizzbuzz замість чисел, кратних як 3, так і 5.",
+                code: `function fizzBuzz(n) {
+    let result = [];
+    for (let i = 1; i <= n; i++) {
+        if (i % 3 === 0 && i % 5 === 0) {
+            result.push("fizzbuzz");
+        } else if (i % 3 === 0) {
+            result.push("fizz");
+        } else if (i % 5 === 0) {
+            result.push("buzz");
+        } else {
+            result.push(i);
+        }
+    }
+    return result.join(", ");
+}`,
+                testInputs: [
+                    { inputs: [15], expectedOutput: "1, 2, fizz, 4, buzz, fizz, 7, 8, fizz, buzz, 11, fizz, 13, 14, fizzbuzz" }
+                ],
+                solution: function fizzBuzz(n) {
+                    let result = [];
+                    for (let i = 1; i <= n; i++) {
+                        if (i % 3 === 0 && i % 5 === 0) {
+                            result.push("fizzbuzz");
+                        } else if (i % 3 === 0) {
+                            result.push("fizz");
+                        } else if (i % 5 === 0) {
+                            result.push("buzz");
+                        } else {
+                            result.push(i);
+                        }
+                    }
+                    return result.join(", ");
+                }
+            },
+            {
+                id: 4,
+                title: "Функція Calculate",
+                description: "Створіть функцію Calculate, яка приймає три параметри цілочислених значення та виводить на екран середнє арифметичне цих параметрів.",
+                code: `function calculate(a, b, c) {
+    return (a + b + c) / 3;
+}`,
+                testInputs: [
+                    { inputs: [10, 20, 30], expectedOutput: "20" },
+                    { inputs: [5, 10, 15], expectedOutput: "10" },
+                    { inputs: [7, 8, 9], expectedOutput: "8" }
+                ],
+                solution: function calculate(a, b, c) {
+                    return (a + b + c) / 3;
+                }
+            },
+            {
+                id: 5,
+                title: "Функція isDivisible",
+                description: "Створіть функцію isDivisible(n, x, y), яка перевіряє, чи ділиться число n на два числа x і y. Всі вхідні параметри завжди позитивні числа і не являються нулем. Реалізуйте функцію трьома способами: з допомогою конструкції if, з використанням тернарного оператору, без використання конструкції if і тернарного оператора.",
+                code: `// Використання if
+function isDivisibleWithIf(n, x, y) {
+    if (n % x === 0 && n % y === 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// Використання тернарного оператору
+function isDivisibleWithTernary(n, x, y) {
+    return (n % x === 0 && n % y === 0) ? true : false;
+}
+
+// Без використання if і тернарного оператора
+function isDivisible(n, x, y) {
+    return n % x === 0 && n % y === 0;
+}`,
+                testInputs: [
+                    { inputs: [12, 3, 4], expectedOutput: "true" },
+                    { inputs: [12, 5, 6], expectedOutput: "false" },
+                    { inputs: [100, 5, 10], expectedOutput: "true" }
+                ],
+                solution: function isDivisible(n, x, y) {
+                    return n % x === 0 && n % y === 0;
+                }
+            },
+            {
+                id: 6,
+                title: "Операції з масивом",
+                description: "Створити масив розмірністю N елементів, заповнити його довільними цілими значеннями. Вивести найбільше значення масиву, найменше значення масиву, загальну суму елементів, середнє арифметичне всіх елементів, вивести непарні значення.",
+                code: `function arrayOperations(N) {
+    // Створення масиву з N випадкових чисел від 1 до 100
+    const array = Array(N).fill().map(() => Math.floor(Math.random() * 100) + 1);
+    
+    // Знаходження найбільшого і найменшого елементів
+    const max = Math.max(...array);
+    const min = Math.min(...array);
+    
+    // Обчислення суми елементів
+    const sum = array.reduce((acc, val) => acc + val, 0);
+    
+    // Обчислення середнього арифметичного
+    const average = sum / array.length;
+    
+    // Фільтрація непарних чисел
+    const oddNumbers = array.filter(num => num % 2 !== 0);
+    
+    return {
+        array,
+        max,
+        min,
+        sum,
+        average,
+        oddNumbers
+    };
+}`,
+                testInputs: [
+                    { inputs: [5], expectedOutput: "Перевірте результат" },
+                    { inputs: [10], expectedOutput: "Перевірте результат" }
+                ],
+                solution: function arrayOperations(N) {
+                    // Створення масиву з N випадкових чисел від 1 до 100
+                    const array = Array(N).fill().map(() => Math.floor(Math.random() * 100) + 1);
+                    
+                    // Знаходження найбільшого і найменшого елементів
+                    const max = Math.max(...array);
+                    const min = Math.min(...array);
+                    
+                    // Обчислення суми елементів
+                    const sum = array.reduce((acc, val) => acc + val, 0);
+                    
+                    // Обчислення середнього арифметичного
+                    const average = sum / array.length;
+                    
+                    // Фільтрація непарних чисел
+                    const oddNumbers = array.filter(num => num % 2 !== 0);
+                    
+                    return {
+                        array,
+                        max,
+                        min,
+                        sum,
+                        average,
+                        oddNumbers
+                    };
+                }
+            },
+            {
+                id: 7,
+                title: "Робота з двовимірним масивом",
+                description: "Створити двовимірний масив елементів розмірністю 5х5 і заповнити його довільними цілочисельними значеннями. По головній діагоналі всі числа зі знаком (-) замінити на 0, а числа зі знаком (+) на число 1.",
+                code: `function matrixDiagonalReplace() {
+    // Створення матриці 5x5 з випадковими числами від -50 до 50
+    const matrix = Array(5).fill().map(() => 
+        Array(5).fill().map(() => Math.floor(Math.random() * 101) - 50)
+    );
+    
+    // Копія початкової матриці
+    const originalMatrix = matrix.map(row => [...row]);
+    
+    // Заміна значень по головній діагоналі
+    for (let i = 0; i < 5; i++) {
+        if (matrix[i][i] < 0) {
+            matrix[i][i] = 0;
+        } else if (matrix[i][i] > 0) {
+            matrix[i][i] = 1;
+        }
+    }
+    
+    return {
+        originalMatrix,
+        modifiedMatrix: matrix
+    };
+}`,
+                testInputs: [
+                    { inputs: [], expectedOutput: "Перевірте результат" }
+                ],
+                solution: function matrixDiagonalReplace() {
+                    // Створення матриці 5x5 з випадковими числами від -50 до 50
+                    const matrix = Array(5).fill().map(() => 
+                        Array(5).fill().map(() => Math.floor(Math.random() * 101) - 50)
+                    );
+                    
+                    // Копія початкової матриці
+                    const originalMatrix = matrix.map(row => [...row]);
+                    
+                    // Заміна значень по головній діагоналі
+                    for (let i = 0; i < 5; i++) {
+                        if (matrix[i][i] < 0) {
+                            matrix[i][i] = 0;
+                        } else if (matrix[i][i] > 0) {
+                            matrix[i][i] = 1;
+                        }
+                    }
+                    
+                    return {
+                        originalMatrix,
+                        modifiedMatrix: matrix
+                    };
+                }
+            },
+            {
+                id: 8,
+                title: "Арифметичні функції",
+                description: "Створіть чотири функції для арифметичних операцій: Add – додавання, Sub – віднімання, Mul – множення, Div – ділення. Кожна функція повинна приймати два параметри і виводити на екран результат обчислення. Функція ділення повинна виконувати перевірку на нуль.",
+                code: `function arithmeticOperations(a, b, operation) {
+    let result;
+    
+    switch(operation) {
+        case 'add':
+            result = add(a, b);
+            break;
+        case 'sub':
+            result = sub(a, b);
+            break;
+        case 'mul':
+            result = mul(a, b);
+            break;
+        case 'div':
+            result = div(a, b);
+            break;
+        default:
+            return "Невідома операція";
+    }
+    
+    return result;
+}
+
+function add(a, b) {
+    return a + b;
+}
+
+function sub(a, b) {
+    return a - b;
+}
+
+function mul(a, b) {
+    return a * b;
+}
+
+function div(a, b) {
+    if (b === 0) {
+        return "Помилка: Ділення на нуль";
+    }
+    return a / b;
+}`,
+                testInputs: [
+                    { inputs: [10, 5, 'add'], expectedOutput: "15" },
+                    { inputs: [10, 5, 'sub'], expectedOutput: "5" },
+                    { inputs: [10, 5, 'mul'], expectedOutput: "50" },
+                    { inputs: [10, 5, 'div'], expectedOutput: "2" },
+                    { inputs: [10, 0, 'div'], expectedOutput: "Помилка: Ділення на нуль" }
+                ],
+                solution: function arithmeticOperations(a, b, operation) {
+                    function add(a, b) { return a + b; }
+                    function sub(a, b) { return a - b; }
+                    function mul(a, b) { return a * b; }
+                    function div(a, b) {
+                        if (b === 0) {
+                            return "Помилка: Ділення на нуль";
+                        }
+                        return a / b;
+                    }
+                    
+                    let result;
+                    
+                    switch(operation) {
+                        case 'add':
+                            result = add(a, b);
+                            break;
+                        case 'sub':
+                            result = sub(a, b);
+                            break;
+                        case 'mul':
+                            result = mul(a, b);
+                            break;
+                        case 'div':
+                            result = div(a, b);
+                            break;
+                        default:
+                            return "Невідома операція";
+                    }
+                    
+                    return result;
+                }
+            },
+            {
+                id: 9,
+                title: "Аналіз числа",
+                description: "Напишіть функцію, яка буде приймати число і визначати: чи є введене число позитивним або негативним; чи є число простим; чи ділиться воно на 2, 5, 3, 6, 9 без залишку.",
+                code: `function analyzeNumber(num) {
+    // Визначаємо знак числа
+    const sign = num > 0 ? "позитивне" : (num < 0 ? "негативне" : "нуль");
+    
+    // Для перевірки простого числа
+    function isPrime(n) {
+        if (n <= 1) return false;
+        if (n <= 3) return true;
+        if (n % 2 === 0 || n % 3 === 0) return false;
+        
+        for (let i = 5; i * i <= n; i += 6) {
+            if (n % i === 0 || n % (i + 2) === 0) return false;
+        }
+        return true;
+    }
+    
+    // Перевірка чи є число простим
+    const prime = isPrime(Math.abs(num)) ? "просте" : "не просте";
+    
+    // Перевірка подільності
+    const divisibility = {
+        "2": num % 2 === 0,
+        "3": num % 3 === 0,
+        "5": num % 5 === 0,
+        "6": num % 6 === 0,
+        "9": num % 9 === 0
+    };
+    
+    return {
+        number: num,
+        sign,
+        prime,
+        divisibility
+    };
+}`,
+                testInputs: [
+                    { inputs: [10], expectedOutput: "Перевірте результат" },
+                    { inputs: [7], expectedOutput: "Перевірте результат" },
+                    { inputs: [-15], expectedOutput: "Перевірте результат" }
+                ],
+                solution: function analyzeNumber(num) {
+                    // Визначаємо знак числа
+                    const sign = num > 0 ? "позитивне" : (num < 0 ? "негативне" : "нуль");
+                    
+                    // Для перевірки простого числа
+                    function isPrime(n) {
+                        if (n <= 1) return false;
+                        if (n <= 3) return true;
+                        if (n % 2 === 0 || n % 3 === 0) return false;
+                        
+                        for (let i = 5; i * i <= n; i += 6) {
+                            if (n % i === 0 || n % (i + 2) === 0) return false;
+                        }
+                        return true;
+                    }
+                    
+                    // Перевірка чи є число простим
+                    const prime = isPrime(Math.abs(num)) ? "просте" : "не просте";
+                    
+                    // Перевірка подільності
+                    const divisibility = {
+                        "2": num % 2 === 0,
+                        "3": num % 3 === 0,
+                        "5": num % 5 === 0,
+                        "6": num % 6 === 0,
+                        "9": num % 9 === 0
+                    };
+                    
+                    return {
+                        number: num,
+                        sign,
+                        prime,
+                        divisibility
+                    };
+                }
+            },
+            {
+                id: 10,
+                title: "Перевертання масиву та піднесення в квадрат",
+                description: "Створити функцію яка приймає параметром масив і повертає перевернутий масив, всі числові значення масиву підносяться до квадрату, значення всіх інших елементів залишається без змін.",
+                code: `function reverseAndSquareNumbers(arr) {
+    // Клонування масиву для уникнення мутації оригіналу
+    const result = [...arr];
+    
+    // Обробка кожного елемента масиву
+    for (let i = 0; i < result.length; i++) {
+        if (typeof result[i] === 'number') {
+            result[i] = result[i] * result[i];
+        }
+    }
+    
+    // Перевертання масиву
+    return result.reverse();
+}`,
+                testInputs: [
+                    { inputs: [[1, 2, "a", 3, "b", 4]], expectedOutput: "[16, 'b', 9, 'a', 4, 1]" },
+                    { inputs: [[5, "x", "y", 10]], expectedOutput: "[100, 'y', 'x', 25]" }
+                ],
+                solution: function reverseAndSquareNumbers(arr) {
+                    // Клонування масиву для уникнення мутації оригіналу
+                    const result = [...arr];
+                    
+                    // Обробка кожного елемента масиву
+                    for (let i = 0; i < result.length; i++) {
+                        if (typeof result[i] === 'number') {
+                            result[i] = result[i] * result[i];
+                        }
+                    }
+                    
+                    // Перевертання масиву
+                    return result.reverse();
+                }
+            },
+            {
+                id: 11,
+                title: "Видалення дублікатів з масиву",
+                description: "Напишіть функцію, яка видаляє дублікати в масиві. Наприклад, вхідний масив: [1, 2, 2, 4, 5, 4, 7, 8, 7, 3, 6], який повертає функція [1, 2, 4, 5, 7, 8, 3, 6].",
+                code: `function removeDuplicates(arr) {
+    return [...new Set(arr)];
+}`,
+                testInputs: [
+                    { inputs: [[1, 2, 2, 4, 5, 4, 7, 8, 7, 3, 6]], expectedOutput: "1,2,4,5,7,8,3,6" },
+                    { inputs: [[10, 20, 30, 10, 40, 20]], expectedOutput: "10,20,30,40" }
+                ],
+                solution: function removeDuplicates(arr) {
+                    return [...new Set(arr)];
+                }
+            }
+        ];
+
+        // Функція для створення UI елементів завдань
+        function renderTasks() {
+            const taskContainer = document.getElementById('task-container');
+            
+            tasks.forEach(task => {
+                const taskElement = document.createElement('div');
+                taskElement.className = 'task';
+                taskElement.id = `task-${task.id}`;
+                
+                taskElement.innerHTML = `
+                    <h2>Завдання ${task.id}: ${task.title}</h2>
+                    <div class="task-description">${task.description}</div>
+                    
+                    <div class="solution">
+                        <h3>Рішення:</h3>
+                        <pre>${task.code}</pre>
+                    </div>
+                    
+                    <div class="test-inputs">
+                        <h3>Перевірка функції:</h3>
+                        ${task.testInputs.map((test, index) => `
+                            <div class="test-case">
+                                <input type="text" id="task-${task.id}-test-${index}" value="${test.inputs.join(', ')}" readonly>
+                                <button onclick="runTest(${task.id}, ${index})">Запустити</button>
+                                <span id="task-${task.id}-result-${index}"></span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="output" id="output-${task.id}">
+                        <div class="output-title">Результат виконання:</div>
+                        <div id="output-content-${task.id}"></div>
+                    </div>
+                `;
+                
+                taskContainer.appendChild(taskElement);
+            });
+        }
+
+        // Функція для запуску тестів
+        function runTest(taskId, testIndex) {
+            const task = tasks.find(t => t.id === taskId);
+            const test = task.testInputs[testIndex];
+            const result = task.solution(...test.inputs);
+            
+            const resultElement = document.getElementById(`task-${taskId}-result-${testIndex}`);
+            const outputContent = document.getElementById(`output-content-${taskId}`);
+            
+            // Відображення результату біля кнопки
+            if (typeof result === 'object' && result !== null && !Array.isArray(result)) {
+                resultElement.textContent = ` → [Об'єкт]`;
+            } else if (Array.isArray(result)) {
+                resultElement.textContent = ` → [${result.toString().substring(0, 20)}${result.toString().length > 20 ? '...' : ''}]`;
+            } else {
+                resultElement.textContent = ` → ${result}`;
+            }
+            
+            // Відображення результату в секції output
+            if (taskId === 6) { // Масив операцій
+                outputContent.innerHTML = `
+                    <p>Вхідні дані: ${test.inputs.join(', ')}</p>
+                    <p>Згенерований масив: [${result.array.join(', ')}]</p>
+                    <p>Найбільше значення: ${result.max}</p>
+                    <p>Найменше значення: ${result.min}</p>
+                    <p>Сума елементів: ${result.sum}</p>
+                    <p>Середнє арифметичне: ${result.average}</p>
+                    <p>Непарні значення: [${result.oddNumbers.join(', ')}]</p>
+                `;
+            } else if (taskId === 7) { // Двовимірний масив
+                let originalMatrixHTML = '<table border="1" cellpadding="5">';
+                let modifiedMatrixHTML = '<table border="1" cellpadding="5">';
+                
+                for (let i = 0; i < 5; i++) {
+                    originalMatrixHTML += '<tr>';
+                    modifiedMatrixHTML += '<tr>';
+                    
+                    for (let j = 0; j < 5; j++) {
+                        const isMainDiagonal = i === j;
+                        originalMatrixHTML += `<td${isMainDiagonal ? ' style="background-color: #ffffcc;"' : ''}>${result.originalMatrix[i][j]}</td>`;
+                        modifiedMatrixHTML += `<td${isMainDiagonal ? ' style="background-color: #ffffcc;"' : ''}>${result.modifiedMatrix[i][j]}</td>`;
+                    }
+                    
+                    originalMatrixHTML += '</tr>';
+                    modifiedMatrixHTML += '</tr>';
+                }
+                
+                originalMatrixHTML += '</table>';
+                modifiedMatrixHTML += '</table>';
+                
+                outputContent.innerHTML = `
+                    <p>Початкова матриця (виділена головна діагональ):</p>
+                    ${originalMatrixHTML}
+                    <p>Модифікована матриця (виділена головна діагональ):</p>
+                    ${modifiedMatrixHTML}
+                `;
+            } else if (taskId === 9) { // Аналіз числа
+                const divs = Object.entries(result.divisibility)
+                    .map(([num, divides]) => `${num}: ${divides ? 'ділиться' : 'не ділиться'}`)
+                    .join('<br>');
+                
+                outputContent.innerHTML = `
+                    <p>Число: ${result.number}</p>
+                    <p>Знак: ${result.sign}</p>
+                    <p>Простота: ${result.prime}</p>
+                    <p>Подільність на:</p>
+                    ${divs}
+                `;
+            } else if (taskId === 10 || taskId === 11) { // Перевертання масиву та видалення дублікатів
+                outputContent.innerHTML = `
+                    <p>Вхідні дані: [${test.inputs[0]}]</p>
+                    <p>Результат: [${result}]</p>
+                    <p>Очікуваний результат: [${test.expectedOutput}]</p>
+                    <p>Тест ${result.toString() === test.expectedOutput ? 'пройдено ✅' : 'не пройдено ❌'}</p>
+                `;
+            } else {
+                outputContent.innerHTML = `
+                    <p>Вхідні дані: ${test.inputs.join(', ')}</p>
+                    <p>Результат: ${result}</p>
+                    <p>Очікуваний результат: ${test.expectedOutput}</p>
+                    <p>Тест ${result.toString() === test.expectedOutput ? 'пройдено ✅' : 'не пройдено ❌'}</p>
+                `;
+            }
+        }
+
+        // Ініціалізація UI
+        window.onload = function() {
+            renderTasks();
+        };
+    </script>
+</body>
+</html> 

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя друга гра - Лабораторна робота 1.19</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        
+        h2 {
+            color: #555;
+            font-size: 1.2em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .game-interface {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .current-image-container {
+            width: 220px;
+            height: 220px;
+            border: 3px solid #4CAF50;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        
+        .current-image {
+            max-width: 200px;
+            max-height: 200px;
+            cursor: move;
+        }
+        
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .game-cell {
+            width: 150px;
+            height: 150px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .game-cell:hover {
+            border-color: #aaa;
+        }
+        
+        .game-cell.highlight {
+            border-color: #4CAF50;
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+        
+        .game-cell img {
+            max-width: 140px;
+            max-height: 140px;
+        }
+        
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #388E3C;
+        }
+        
+        .restart-btn {
+            background-color: #FF9800;
+        }
+        
+        .restart-btn:hover {
+            background-color: #F57C00;
+        }
+        
+        .back-link {
+            color: #4CAF50;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .ui-dialog .ui-dialog-titlebar {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .ui-dialog .ui-dialog-buttonpane button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 8px 16px;
+        }
+        
+        .ui-dialog .ui-dialog-buttonpane button:hover {
+            background: #388E3C;
+        }
+        
+        /* Стилі для різних категорій */
+        body.animals h1 { color: #4CAF50; }
+        body.animals .current-image-container { border-color: #4CAF50; }
+        body.animals .game-cell.highlight { border-color: #4CAF50; background-color: rgba(76, 175, 80, 0.1); }
+        body.animals .btn, body.animals .ui-dialog .ui-dialog-titlebar, body.animals .ui-dialog .ui-dialog-buttonpane button { background-color: #4CAF50; }
+        body.animals .btn:hover, body.animals .ui-dialog .ui-dialog-buttonpane button:hover { background-color: #388E3C; }
+        
+        body.insects h1 { color: #FF9800; }
+        body.insects .current-image-container { border-color: #FF9800; }
+        body.insects .game-cell.highlight { border-color: #FF9800; background-color: rgba(255, 152, 0, 0.1); }
+        body.insects .btn, body.insects .ui-dialog .ui-dialog-titlebar, body.insects .ui-dialog .ui-dialog-buttonpane button { background-color: #FF9800; }
+        body.insects .btn:hover, body.insects .ui-dialog .ui-dialog-buttonpane button:hover { background-color: #F57C00; }
+        
+        body.fish h1 { color: #2196F3; }
+        body.fish .current-image-container { border-color: #2196F3; }
+        body.fish .game-cell.highlight { border-color: #2196F3; background-color: rgba(33, 150, 243, 0.1); }
+        body.fish .btn, body.fish .ui-dialog .ui-dialog-titlebar, body.fish .ui-dialog .ui-dialog-buttonpane button { background-color: #2196F3; }
+        body.fish .btn:hover, body.fish .ui-dialog .ui-dialog-buttonpane button:hover { background-color: #1976D2; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Моя друга гра</h1>
+        <h2 id="category-title">Категорія: Тварини</h2>
+        
+        <div class="game-interface">
+            <div class="current-image-container">
+                <img src="" alt="Поточне зображення" class="current-image" id="current-image">
+            </div>
+            
+            <div class="game-board" id="game-board">
+                <!-- Ігрове поле буде генеруватися через JavaScript -->
+            </div>
+            
+            <div class="controls">
+                <button class="btn restart-btn" id="restart-btn">Почати з початку</button>
+                <button class="btn" id="change-category-btn">Змінити категорію</button>
+            </div>
+        </div>
+    </div>
+    
+    <a href="index.html" class="back-link">← Повернутися на головну</a>
+    
+    <!-- Діалогове вікно з привітанням -->
+    <div id="congrats-dialog" title="Вітаємо!" style="display: none;">
+        <p>Ви успішно завершили гру! Всі зображення знайдено!</p>
+    </div>
+    
+    <script>
+        $(document).ready(function() {
+            // Отримуємо категорію з URL
+            const urlParams = new URLSearchParams(window.location.search);
+            let category = urlParams.get('category') || 'animals';
+            
+            // Словник з українськими назвами категорій
+            const categoryNames = {
+                'animals': 'Тварини',
+                'insects': 'Комахи',
+                'fish': 'Риби'
+            };
+            
+            // Встановлюємо клас body та заголовок відповідно до категорії
+            $('body').addClass(category);
+            $('#category-title').text(`Категорія: ${categoryNames[category]}`);
+            
+            // Масив зображень для кожної категорії (використовуємо зображення з інтернету)
+            const imageUrls = {
+                'animals': [
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+1',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+2',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+3',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+4',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+5',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+6',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+7',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+8',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+9',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+10',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+11',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+12',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+13',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+14',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+15',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+16',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+17',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+18',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+19',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+20',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+21',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+22',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+23',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+24',
+                    'https://via.placeholder.com/150/4CAF50/FFFFFF?text=Animal+25'
+                ],
+                'insects': [
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+1',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+2',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+3',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+4',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+5',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+6',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+7',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+8',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+9',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+10',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+11',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+12',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+13',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+14',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+15',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+16',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+17',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+18',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+19',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+20',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+21',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+22',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+23',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+24',
+                    'https://via.placeholder.com/150/FF9800/FFFFFF?text=Insect+25'
+                ],
+                'fish': [
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+1',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+2',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+3',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+4',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+5',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+6',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+7',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+8',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+9',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+10',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+11',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+12',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+13',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+14',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+15',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+16',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+17',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+18',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+19',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+20',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+21',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+22',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+23',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+24',
+                    'https://via.placeholder.com/150/2196F3/FFFFFF?text=Fish+25'
+                ]
+            };
+            
+            // Змінні гри
+            let gameImages = []; // Зображення на ігровому полі
+            let currentImageIndex; // Індекс поточного зображення
+            let matchesFound = 0; // Кількість знайдених співпадінь
+            
+            // Ініціалізація гри
+            initGame();
+            
+            // Функція ініціалізації гри
+            function initGame() {
+                // Скидаємо лічильник знайдених співпадінь
+                matchesFound = 0;
+                
+                // Перемішуємо і вибираємо 25 випадкових зображень для гри
+                gameImages = shuffleArray(imageUrls[category]).slice(0, 25);
+                
+                // Створюємо ігрове поле
+                createGameBoard();
+                
+                // Вибираємо випадкове зображення як поточне
+                selectRandomCurrentImage();
+                
+                // Налаштовуємо draggable для поточного зображення
+                setupDraggable();
+            }
+            
+            // Функція для створення ігрового поля
+            function createGameBoard() {
+                const $gameBoard = $('#game-board');
+                $gameBoard.empty();
+                
+                // Додаємо 25 клітинок з зображеннями
+                for (let i = 0; i < 25; i++) {
+                    const $cell = $('<div>')
+                        .addClass('game-cell')
+                        .attr('data-index', i);
+                    
+                    $('<img>')
+                        .attr('src', gameImages[i])
+                        .attr('alt', `Image ${i+1}`)
+                        .appendTo($cell);
+                    
+                    $gameBoard.append($cell);
+                }
+                
+                // Налаштовуємо droppable для клітинок
+                setupDroppable();
+            }
+            
+            // Функція для вибору випадкового поточного зображення
+            function selectRandomCurrentImage() {
+                // Вибираємо випадкове зображення з тих, що залишилися в грі
+                const availableIndices = [];
+                for (let i = 0; i < gameImages.length; i++) {
+                    // Перевіряємо, чи клітинка ще активна (не була співставлена)
+                    const $cell = $(`.game-cell[data-index="${i}"]`);
+                    if (!$cell.hasClass('matched')) {
+                        availableIndices.push(i);
+                    }
+                }
+                
+                // Якщо всі зображення вже були співставлені, гра завершена
+                if (availableIndices.length === 0) {
+                    showCongratsDialog();
+                    return;
+                }
+                
+                // Випадковий вибір з доступних індексів
+                const randomIndex = Math.floor(Math.random() * availableIndices.length);
+                currentImageIndex = availableIndices[randomIndex];
+                
+                // Оновлюємо зображення
+                $('#current-image').attr('src', gameImages[currentImageIndex]);
+            }
+            
+            // Налаштування draggable для поточного зображення
+            function setupDraggable() {
+                $('#current-image').draggable({
+                    revert: 'invalid', // Повернення на місце, якщо drop невдалий
+                    cursor: 'move',
+                    helper: 'clone', // Використовуємо клон під час перетягування
+                    opacity: 0.7,
+                    zIndex: 100
+                });
+            }
+            
+            // Налаштування droppable для клітинок ігрового поля
+            function setupDroppable() {
+                $('.game-cell').droppable({
+                    accept: '.current-image',
+                    hoverClass: 'highlight',
+                    drop: function(event, ui) {
+                        const cellIndex = $(this).data('index');
+                        
+                        // Перевіряємо, чи співпадає зображення
+                        if (cellIndex === currentImageIndex) {
+                            // Позначаємо клітинку як співставлену
+                            $(this).addClass('matched');
+                            
+                            // Збільшуємо лічильник знайдених співпадінь
+                            matchesFound++;
+                            
+                            // Вибираємо нове поточне зображення
+                            selectRandomCurrentImage();
+                        } else {
+                            // Неправильне співставлення - зображення повертається на місце
+                            ui.draggable.draggable('option', 'revert', true);
+                        }
+                    }
+                });
+            }
+            
+            // Показуємо діалогове вікно з привітанням
+            function showCongratsDialog() {
+                $('#congrats-dialog').dialog({
+                    modal: true,
+                    buttons: {
+                        'Грати ще раз': function() {
+                            $(this).dialog('close');
+                            initGame();
+                        },
+                        'Змінити категорію': function() {
+                            $(this).dialog('close');
+                            window.location.href = 'index.html';
+                        }
+                    }
+                });
+            }
+            
+            // Функція для перемішування масиву (алгоритм Фішера-Йейтса)
+            function shuffleArray(array) {
+                const newArray = [...array]; // Створюємо копію масиву
+                for (let i = newArray.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+                }
+                return newArray;
+            }
+            
+            // Обробники подій для кнопок
+            $('#restart-btn').on('click', function() {
+                initGame();
+            });
+            
+            $('#change-category-btn').on('click', function() {
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота 1.16</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .task {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+        .task h2 {
+            margin-top: 0;
+            border-bottom: 2px solid #2196F3;
+            padding-bottom: 5px;
+        }
+        .result {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            min-height: 30px;
+            margin-top: 10px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #2196F3;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .link-container {
+            margin-top: 20px;
+        }
+        .part2-link {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            background-color: #2196F3;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+        .part2-link:hover {
+            background-color: #0b7dda;
+        }
+        img {
+            margin: 10px;
+            max-width: 200px;
+            height: auto;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+        a {
+            display: block;
+            margin: 10px 0;
+            color: #2196F3;
+        }
+        .input-container {
+            margin: 15px 0;
+        }
+        input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 300px;
+        }
+        p {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Лабораторна робота 1.16</h1>
+
+    <div class="task">
+        <h2>Завдання 1</h2>
+        <p>З використанням властивості elem.onclick прив'яжіть до кожного рисунку обробник подія, щоб при натисканні на картинку alert виводив значення її атрибуту src.</p>
+        <div>
+            <img src="img/image1.jpg" alt="Зображення 1">
+            <img src="img/image2.jpg" alt="Зображення 2">
+            <img src="img/image3.jpg" alt="Зображення 3">
+        </div>
+        <div class="result" id="result1"></div>
+    </div>
+
+    <div class="task">
+        <h2>Завдання 2</h2>
+        <p>З використанням методу addEventListener, removeEventListener прив'яжіть до кожного посилання обробник події, щоб при наведенні на посилання в атрибут title записувався його текст.</p>
+        <div>
+            <a href="#link1" id="link1">Перше посилання</a>
+            <a href="#link2" id="link2">Друге посилання</a>
+            <a href="#link3" id="link3">Третє посилання</a>
+        </div>
+        <div class="result" id="result2"></div>
+    </div>
+
+    <div class="task">
+        <h2>Завдання 3</h2>
+        <p>З використанням методу addEventListener, removeEventListener прив'яжіть до кожного посилання обробник події, щоб при наведенні на посилання в кінець його тексту дописувався href в круглих дужках.</p>
+        <div>
+            <a href="#task3link1" id="task3link1">Перше посилання</a>
+            <a href="#task3link2" id="task3link2">Друге посилання</a>
+            <a href="#task3link3" id="task3link3">Третє посилання</a>
+        </div>
+        <div class="result" id="result3"></div>
+    </div>
+
+    <div class="task">
+        <h2>Завдання 4</h2>
+        <p>Доповніть попередню задачу: після першого наведення на посилання слід відв'язати від неї подію, яка додає href в кінець тексту.</p>
+        <div>
+            <a href="#task4link1" id="task4link1">Перше посилання</a>
+            <a href="#task4link2" id="task4link2">Друге посилання</a>
+            <a href="#task4link3" id="task4link3">Третє посилання</a>
+        </div>
+        <div class="result" id="result4"></div>
+    </div>
+
+    <div class="task">
+        <h2>Завдання 5</h2>
+        <p>Дано три елементи input. Прив'яжіть всім input такий обробник: по втраті фокусу (подія blur) кожен input виводить своє значення (value) в абзац з id = "demo"</p>
+        <div class="input-container">
+            <input type="text" id="input1" placeholder="Введіть текст...">
+            <input type="text" id="input2" placeholder="Введіть текст...">
+            <input type="text" id="input3" placeholder="Введіть текст...">
+        </div>
+        <div class="result" id="demo"></div>
+    </div>
+
+    <div class="task">
+        <h2>Завдання 6</h2>
+        <p>Для всіх input зробіть так, щоб вони виводили значення value з використанням функції alert, при натисканні на будь-який з них, але тільки за першим натискання.</p>
+        <div class="input-container">
+            <input type="text" id="task6input1" placeholder="Натисніть один раз...">
+            <input type="text" id="task6input2" placeholder="Натисніть один раз...">
+            <input type="text" id="task6input3" placeholder="Натисніть один раз...">
+        </div>
+        <div class="result" id="result6"></div>
+    </div>
+
+    <div class="task">
+        <h2>Завдання 7</h2>
+        <p>Дано три параграфи з числами. При натисканні на параграф в ньому повинен з'явиться квадрат числа, яке він містить.</p>
+        <div>
+            <p id="num1">5</p>
+            <p id="num2">7</p>
+            <p id="num3">10</p>
+        </div>
+        <div class="result" id="result7"></div>
+    </div>
+
+    <div class="task">
+        <h2>Завдання 8</h2>
+        <p>Дано три елементи input. По втраті фокусу перевіряти свій вміст на правильну кількість символів (вказується в атрибуті data-length).</p>
+        <div class="input-container">
+            <input type="text" id="validate1" data-length="3" placeholder="Має бути 3 символи">
+            <input type="text" id="validate2" data-length="5" placeholder="Має бути 5 символів">
+            <input type="text" id="validate3" data-length="7" placeholder="Має бути 7 символів">
+        </div>
+        <div class="result" id="result8"></div>
+    </div>
+
+    <div class="link-container">
+        <a href="task2.html" class="part2-link">Перейти до частини 2</a>
+    </div>
+
+    <a href="../index.html" class="back-link">← Повернутися на головну</a>
+
+    <script>
+        // Завдання 1: alert при натисканні на зображення
+        const images = document.querySelectorAll('img');
+        for (let img of images) {
+            img.onclick = function() {
+                alert(this.src);
+                document.getElementById('result1').textContent = "Виведено src зображення: " + this.src;
+            };
+        }
+
+        // Завдання 2: запис тексту в title
+        const links2 = document.querySelectorAll('[id^="link"]');
+        for (let link of links2) {
+            const showTitle = function() {
+                this.title = this.textContent;
+                document.getElementById('result2').textContent = "Записано title для: " + this.textContent;
+            };
+            
+            link.addEventListener('mouseover', showTitle);
+        }
+
+        // Завдання 3: додавання href в кінець тексту
+        const links3 = document.querySelectorAll('[id^="task3link"]');
+        for (let link of links3) {
+            const addHref = function() {
+                const originalText = this.textContent.split(' (')[0]; // Видаляємо попередні href якщо є
+                this.textContent = originalText + " (" + this.getAttribute('href') + ")";
+                document.getElementById('result3').textContent = "Додано href для: " + originalText;
+            };
+            
+            link.addEventListener('mouseover', addHref);
+        }
+
+        // Завдання 4: відв'язування події після першого наведення
+        const links4 = document.querySelectorAll('[id^="task4link"]');
+        for (let link of links4) {
+            const addHrefOnce = function() {
+                const originalText = this.textContent.split(' (')[0]; // Видаляємо попередні href якщо є
+                this.textContent = originalText + " (" + this.getAttribute('href') + ")";
+                document.getElementById('result4').textContent = "Додано href та відв'язано подію для: " + originalText;
+                
+                // Відв'язуємо подію після першого виклику
+                this.removeEventListener('mouseover', addHrefOnce);
+            };
+            
+            link.addEventListener('mouseover', addHrefOnce);
+        }
+
+        // Завдання 5: виведення значення input при втраті фокусу
+        const inputs5 = document.querySelectorAll('[id^="input"]');
+        for (let input of inputs5) {
+            input.addEventListener('blur', function() {
+                document.getElementById('demo').textContent = 
+                    "Значення з " + this.id + ": " + this.value;
+            });
+        }
+
+        // Завдання 6: alert при першому натисканні
+        const inputs6 = document.querySelectorAll('[id^="task6input"]');
+        for (let input of inputs6) {
+            const showAlertOnce = function() {
+                alert(this.value);
+                document.getElementById('result6').textContent = 
+                    "Показано alert для " + this.id;
+                
+                // Відв'язуємо подію після першого виклику
+                this.removeEventListener('click', showAlertOnce);
+            };
+            
+            input.addEventListener('click', showAlertOnce);
+        }
+
+        // Завдання 7: виведення квадрату числа
+        const paragraphs = document.querySelectorAll('[id^="num"]');
+        for (let p of paragraphs) {
+            p.addEventListener('click', function() {
+                const num = parseInt(this.textContent);
+                const squared = num * num;
+                this.textContent = squared;
+                document.getElementById('result7').textContent = 
+                    num + "² = " + squared;
+            });
+        }
+
+        // Завдання 8: перевірка кількості символів
+        const validationInputs = document.querySelectorAll('[id^="validate"]');
+        for (let input of validationInputs) {
+            input.addEventListener('blur', function() {
+                const expectedLength = parseInt(this.getAttribute('data-length'));
+                const actualLength = this.value.length;
+                
+                if (actualLength === expectedLength) {
+                    this.style.borderColor = 'green';
+                    document.getElementById('result8').textContent = 
+                        "Поле " + this.id + " містить правильну кількість символів";
+                } else {
+                    this.style.borderColor = 'red';
+                    document.getElementById('result8').textContent = 
+                        "Поле " + this.id + " має містити " + expectedLength + " символів, а не " + actualLength;
+                }
+            });
+        }
+    </script>
+</body>
+</html> 

@@ -1,250 +1,211 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
-    <title>Лабораторні роботи</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Веб лабораторні роботи</title>
     <style>
         body {
-            background-color: #121212;
-            color: #00ff7f;
-            font-family: "Arial", sans-serif;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 1000px;
             margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            padding: 40px 0;
-            margin-bottom: 40px;
-            border-bottom: 2px solid #00ff7f;
-        }
-
-        h1 {
-            font-size: 36px;
-            margin: 0;
-            text-transform: uppercase;
-        }
-
-        .lab-section {
-            background-color: #1e1e1e;
-            border-radius: 10px;
             padding: 20px;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
             margin-bottom: 30px;
-            box-shadow: 0 0 10px rgba(0, 255, 127, 0.2);
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eaeaea;
         }
-
-        .lab-title {
-            font-size: 24px;
-            color: #00ff7f;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #00ff7f;
-            padding-bottom: 10px;
-        }
-
-        .lab-links {
+        
+        .labs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
         }
-
-        .lab-link {
-            background-color: #2a2a2a;
-            padding: 15px;
+        
+        .lab-container {
+            background-color: white;
             border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            padding: 20px;
             transition: transform 0.2s, box-shadow 0.2s;
         }
-
-        .lab-link:hover {
+        
+        .lab-container:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 255, 127, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-
-        a {
-            color: #00ff7f;
+        
+        .lab-title {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+            font-size: 1.3em;
+        }
+        
+        .task-list {
+            list-style-type: circle;
+            padding-left: 20px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .task-list li {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .lab-link {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
             text-decoration: none;
-            display: block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 0;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            box-sizing: border-box;
         }
-
-        a:hover {
-            color: #00ff9f;
+        
+        .lab-link:hover {
+            background-color: #2980b9;
         }
-
+        
         footer {
             text-align: center;
             margin-top: 40px;
             padding-top: 20px;
-            border-top: 2px solid #00ff7f;
+            border-top: 1px solid #eaeaea;
+            color: #7f8c8d;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Навігація по лабораторних роботах</h1>
-        </header>
-
-        <div class="lab-section">
-            <div class="lab-title">Лабораторна робота №1</div>
-            <div class="lab-links">
-                <div class="lab-link">
-                    <a href="lab1/shyloLab01-4.html">Lab 1-4: Базова структура HTML</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab1/shyloLab01-5.html">Lab 1-5: Стилізація тексту</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab1/shyloLab01-6.html">Lab 1-6: Форматування тексту</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab1/shyloLab01-7.html">Lab 1-7: Вирівнювання тексту</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab1/shyloLab01-8.html">Lab 1-8: Кольори та фон</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab1/shyloLab01-9.html">Lab 1-9: Повна сторінка про себе</a>
-                </div>
-            </div>
+    <h1>Веб лабораторні роботи</h1>
+    
+    <div class="labs-grid">
+        <div class="lab-container">
+            <h2 class="lab-title">Лабораторна робота 1.15</h2>
+            <ul class="task-list">
+                <li>Виведення простих чисел від 0 до 100 з циклом while</li>
+                <li>Виведення чисел від 0 до 10 з циклом do...while</li>
+                <li>Ділення числа на 2 до отримання результату менше 50</li>
+                <li>Визначення пори року за номером місяця</li>
+                <li>Конвертування температури з Цельсія у Фаренгейт</li>
+                <li>Виведення дня тижня за номером</li>
+            </ul>
+            <a href="lab1.15/index.html" class="lab-link">Перейти до лабораторної 1.15</a>
         </div>
 
-        <div class="lab-section">
-            <div class="lab-title">Лабораторна робота №3</div>
-            <div class="lab-links">
-                <div class="lab-link">
-                    <a href="lab3/shyloLab03-01-2.html">Lab 3-1: Робота з зображеннями</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab3/shyloLab03-3.html">Lab 3-3: Про себе та хобі</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab3/shyloLab03-4.html">Lab 3-4: Про групу</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab3/shyloLab03-5.html">Lab 3-5: Галерея фото</a>
-                </div>
-            </div>
+        <div class="lab-container">
+            <h2 class="lab-title">Лабораторна робота 1.16</h2>
+            <ul class="task-list">
+                <li>Виведення значення src при натисканні на зображення</li>
+                <li>Запис тексту в атрибут title при наведенні на посилання</li>
+                <li>Додавання href в круглих дужках при наведенні на посилання</li>
+                <li>Відв'язування події після першого наведення на посилання</li>
+                <li>Виведення значення input у абзац при втраті фокусу</li>
+                <li>Виведення значення input при першому натисканні</li>
+                <li>Виведення квадрату числа при натисканні на параграф</li>
+                <li>Перевірка кількості символів в input</li>
+            </ul>
+            <a href="lab1.16/index.html" class="lab-link">Перейти до лабораторної 1.16</a>
         </div>
 
-        <div class="lab-section">
-            <div class="lab-title">Лабораторна робота №5</div>
-            <div class="lab-links">
-                <div class="lab-link">
-                    <a href="lab5/shyloLab05-1.html">Lab 5-1: Розклад занять</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab5/shyloLab05-2.html">Lab 5-2: Додавання зображення</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab5/shyloLab05-3.html">Lab 5-3: Гіперпосилання</a>
-                </div>
-            </div>
+        <div class="lab-container">
+            <h2 class="lab-title">Лабораторна робота 1.16 (частина 2)</h2>
+            <ul class="task-list">
+                <li>Зміна кольору div при натисканні</li>
+            </ul>
+            <a href="lab1.16/task2.html" class="lab-link">Перейти до лабораторної 1.16 (частина 2)</a>
         </div>
 
-        <div class="lab-section">
-            <div class="lab-title">Лабораторна робота №6</div>
-            <div class="lab-links">
-                <div class="lab-link">
-                    <a href="lab6/shyloLab06-1.html">Lab 6-1: Сенсорні зображення</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab6/shyloLab06-2.html">Lab 6-2: Карта з підказками</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab6/shyloLab06-3.html">Lab 6-3: Моя Батьківщина</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab6/shyloLab06-4.html">Lab 6-4: Фігурні посилання</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab6/shyloLab06-5.html">Lab 6-5: Сенсорне зображення</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab6/shyloLab06-6.html">Lab 6-6: Мої друзі</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="lab-section">
-            <div class="lab-title">Лабораторна робота №7</div>
-            <div class="lab-links">
-                <div class="lab-link">
-                    <a href="lab7/shyloLab07-1_2.html">Lab 7-1</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab7/shyloLab07-3.html">Lab 7-3</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab7/shyloLab07-4.html">Lab 7-4</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="lab-section">
-            <div class="lab-title">Лабораторна робота №8</div>
-            <div class="lab-links">
-                <div class="lab-link">
-                    <a href="lab8/shyloLab08-1.html">Lab 8-1</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab8/shyloLab08-2.html">Lab 8-2</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab8/shyloLab08-3.html">Lab 8-3</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="lab-section">
-            <div class="lab-title">Лабораторна робота №9</div>
-            <div class="lab-links">
-                <div class="lab-link">
-                    <a href="lab9/shyloLab09-1.html">Lab 9-1</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab9/shyloLab09-2.html">Lab 9-2</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab9/shyloLab09-3.html">Lab 9-3</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="lab-section">
-            <div class="lab-title">Лабораторна робота №10</div>
-            <div class="lab-links">
-                <div class="lab-link">
-                    <a href="lab10/shyloLab10.html">Lab 10-1</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab10/shyloLab10-1.html">Lab 10-2</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="lab-section">
-            <div class="lab-title">Лабораторна робота №11</div>
-            <div class="lab-links">
-                <div class="lab-link">
-                    <a href="lab11/shyloLab11.html">Lab 11-1</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab11/shyloLab11-1.html">Lab 11-2</a>
-                </div>
-                <div class="lab-link">
-                    <a href="lab11/shyloLab11-2.html">Lab 11-2</a>
-                </div>
-            </div>
+        <div class="lab-container">
+            <h2 class="lab-title">Лабораторна робота 1.17</h2>
+            <ul class="task-list">
+                <li>Функція для відображення поточної дати і часу</li>
+                <li>Додаток-гра "Вгадай число"</li>
+            </ul>
+            <a href="lab1.17/index.html" class="lab-link">Перейти до лабораторної 1.17</a>
         </div>
         
-        <footer>
-            <p>© 2024 Лабораторні роботи з Web-програмування</p>
-        </footer>
+        <div class="lab-container">
+            <h2 class="lab-title">Лабораторна робота 1.18</h2>
+            <ul class="task-list">
+                <li>Гра "Знайди числа" з використанням jQuery</li>
+                <li>Таймер, лічильник спроб та збереження статистики</li>
+            </ul>
+            <a href="lab1.18/index.html" class="lab-link">Перейти до лабораторної 1.18</a>
+        </div>
+        
+        <div class="lab-container">
+            <h2 class="lab-title">Лабораторна робота 1.19</h2>
+            <ul class="task-list">
+                <li>Гра "Моя друга гра" з використанням jQuery UI</li>
+                <li>Перетягування зображень з трьома категоріями</li>
+            </ul>
+            <a href="lab1.19/index.html" class="lab-link">Перейти до лабораторної 1.19</a>
+        </div>
+        
+        <div class="lab-container">
+            <h2 class="lab-title">Лабораторна робота 1.20</h2>
+            <ul class="task-list">
+                <li>Калькулятор, створений повністю за допомогою JavaScript</li>
+                <li>Динамічне створення елементів та стилів через JS</li>
+            </ul>
+            <a href="lab1.20/index.html" class="lab-link">Перейти до лабораторної 1.20</a>
+        </div>
+        
+        <div class="lab-container">
+            <h2 class="lab-title">Лабораторна робота 1.21</h2>
+            <ul class="task-list">
+                <li>AJAX калькулятор квадрату числа</li>
+                <li>Імітація серверної обробки даних</li>
+            </ul>
+            <a href="lab1.21/index.html" class="lab-link">Перейти до лабораторної 1.21</a>
+        </div>
+        
+        <div class="lab-container">
+            <h2 class="lab-title">Лабораторна робота 1.22</h2>
+            <ul class="task-list">
+                <li>JavaScript функції для роботи з числами та масивами</li>
+                <li>11 завдань з розв'язками та тестами</li>
+            </ul>
+            <a href="lab1.22/index.html" class="lab-link">Перейти до лабораторної 1.22</a>
+        </div>
+
+        <div class="lab-container">
+            <h2 class="lab-title">Лабораторна робота 1.23</h2>
+            <ul class="task-list">
+                <li>Вибір мови та відображення дня тижня</li>
+                <li>Моделювання електричної мережі з різними компонентами</li>
+            </ul>
+            <a href="lab1.23/index.html" class="lab-link">Перейти до лабораторної 1.23</a>
+        </div>
+
+        <div class="lab-container">
+            <h2 class="lab-title">Лабораторная работа 1.24</h2>
+            <ul class="task-list">
+                <li>Приложение на React.js с использованием CDN и Create React App</li>
+                <li>Классовый и функциональный компоненты</li>
+                <li>Реализация компонентов с описанием хобби</li>
+            </ul>
+            <a href="lab1.24/index.html" class="lab-link">Перейти к лабораторной 1.24</a>
+        </div>
     </div>
+    
+    <footer>
+        <p>© 2023 Веб-лабораторні роботи</p>
+    </footer>
 </body>
-</html>
+</html> 

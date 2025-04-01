@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота 1.16 - Частина 2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .task {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+        .task h2 {
+            margin-top: 0;
+            border-bottom: 2px solid #2196F3;
+            padding-bottom: 5px;
+        }
+        .result {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            min-height: 30px;
+            margin-top: 10px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #2196F3;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .color-div {
+            width: 150px;
+            height: 150px;
+            background-color: #2196F3;
+            margin: 10px;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <h1>Лабораторна робота 1.16 - Частина 2</h1>
+
+    <div class="task">
+        <h2>Завдання 1</h2>
+        <p>Дано три елементи &lt;div&gt;. По першому натискання на кожен &lt;div&gt;, він фарбується червоним кольором, по другому натисканні фарбується в попередній колір і так далі кожен клік відбувається чергування фону.</p>
+        <div>
+            <div class="color-div" id="div1"></div>
+            <div class="color-div" id="div2"></div>
+            <div class="color-div" id="div3"></div>
+        </div>
+        <div class="result" id="result1"></div>
+    </div>
+
+    <a href="index.html" class="back-link">← Повернутися до частини 1</a>
+    <br>
+    <a href="../index.html" class="back-link">← Повернутися на головну</a>
+
+    <script>
+        // Завдання 1: чергування кольору div
+        const divs = document.querySelectorAll('.color-div');
+        
+        // Початковий колір (синій)
+        const originalColor = '#2196F3';
+        // Колір при натисканні (червоний)
+        const clickColor = '#f44336';
+
+        for (let div of divs) {
+            // Функція що фарбує у червоний
+            function paintRed() {
+                div.style.backgroundColor = clickColor;
+                document.getElementById('result1').textContent = `Колір елемента ${div.id} змінено на червоний`;
+                
+                // Відв'язуємо поточну подію
+                div.removeEventListener('click', paintRed);
+                // Прив'язуємо функцію, яка поверне початковий колір
+                div.addEventListener('click', paintOriginal);
+            }
+
+            // Функція що повертає початковий колір
+            function paintOriginal() {
+                div.style.backgroundColor = originalColor;
+                document.getElementById('result1').textContent = `Колір елемента ${div.id} повернено до початкового`;
+                
+                // Відв'язуємо поточну подію
+                div.removeEventListener('click', paintOriginal);
+                // Прив'язуємо знову функцію, яка зафарбує червоним
+                div.addEventListener('click', paintRed);
+            }
+
+            // Початково прив'язуємо функцію paintRed
+            div.addEventListener('click', paintRed);
+        }
+    </script>
+</body>
+</html> 

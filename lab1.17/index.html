@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота 1.17</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .task {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+        .task h2 {
+            margin-top: 0;
+            border-bottom: 2px solid #2196F3;
+            padding-bottom: 5px;
+        }
+        .result {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            min-height: 30px;
+            margin-top: 10px;
+        }
+        .console {
+            background-color: #2f3136;
+            color: #dcddde;
+            font-family: 'Courier New', monospace;
+            padding: 10px;
+            border-radius: 4px;
+            min-height: 50px;
+            margin-top: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        button {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0b7dda;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #2196F3;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Лабораторна робота 1.17</h1>
+
+    <div class="task">
+        <h2>Завдання 1</h2>
+        <p>Використовуючи методи об'єкту Date створити функцію, яка буде повертати і виводити в консолі поточний час у форматі: 09:15:56, середа, 06 травня 2020 року</p>
+        <button id="timeButton">Показати поточний час</button>
+        <div class="result" id="result1"></div>
+        <div class="console" id="console1"></div>
+    </div>
+
+    <div class="task">
+        <h2>Завдання 2</h2>
+        <p>Додаток-гра "Вгадай число". Спробуйте вгадати випадкове число від 0 до 100.</p>
+        <button id="guessButton">Почати гру</button>
+        <div class="result" id="result2"></div>
+        <div class="console" id="console2"></div>
+    </div>
+
+    <a href="../index.html" class="back-link">← Повернутися на головну</a>
+
+    <script>
+        // Завдання 1: Функція для відображення поточного часу
+        function showCurrentTime() {
+            const now = new Date();
+            
+            // Форматування часу (години:хвилини:секунди)
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            
+            // Визначення дня тижня
+            const daysOfWeek = ['неділя', 'понеділок', 'вівторок', 'середа', 'четвер', 'п\'ятниця', 'субота'];
+            const dayOfWeek = daysOfWeek[now.getDay()];
+            
+            // Форматування дати (день місяця рік)
+            const day = String(now.getDate()).padStart(2, '0');
+            const months = ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня'];
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+            
+            // Повний рядок дати і часу
+            const fullDateString = `${timeString}, ${dayOfWeek}, ${day} ${month} ${year} року`;
+            
+            // Виведення в результат
+            document.getElementById('result1').textContent = fullDateString;
+            
+            // Виведення в консоль
+            console.log(fullDateString);
+            const consoleElement = document.getElementById('console1');
+            consoleElement.textContent = fullDateString;
+            
+            return fullDateString;
+        }
+        
+        // Прив'язка функції showCurrentTime до кнопки
+        document.getElementById('timeButton').addEventListener('click', showCurrentTime);
+        
+        // Завдання 2: Гра "Вгадай число"
+        let secretNumber;
+        let attempts;
+        let lastGuess;
+        const consoleElement = document.getElementById('console2');
+        
+        function startGame() {
+            // Генеруємо випадкове число від 0 до 100
+            secretNumber = Math.floor(Math.random() * 101);
+            attempts = 0;
+            lastGuess = null;
+            
+            // Очищаємо консоль
+            consoleElement.innerHTML = '';
+            document.getElementById('result2').textContent = '';
+            
+            // Запитуємо у користувача його припущення
+            makeGuess();
+        }
+        
+        function makeGuess() {
+            const userGuess = prompt('Вгадайте число від 0 до 100:');
+            
+            // Перевіряємо, чи користувач не скасував введення
+            if (userGuess === null) {
+                document.getElementById('result2').textContent = 'Гру скасовано користувачем.';
+                return;
+            }
+            
+            // Перевіряємо, чи введено число
+            const guess = parseInt(userGuess);
+            if (isNaN(guess) || guess < 0 || guess > 100) {
+                alert('Будь ласка, введіть число від 0 до 100.');
+                makeGuess();
+                return;
+            }
+            
+            // Збільшуємо лічильник спроб
+            attempts++;
+            
+            // Отримуємо поточний час для логування
+            const now = new Date();
+            const timeString = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+            
+            // Логуємо спробу
+            const attemptLog = `${timeString} Спроба ${attempts}: число ${guess} – не вірно`;
+            console.log(attemptLog);
+            consoleElement.innerHTML += attemptLog + '<br>';
+            
+            // Перевіряємо результат
+            if (guess === secretNumber) {
+                // Користувач вгадав число
+                const resultMessage = `За ${attempts} спроб ви вгадали число ${secretNumber}!`;
+                document.getElementById('result2').textContent = resultMessage;
+                
+                // Запитуємо, чи хоче користувач зіграти ще раз
+                if (confirm(resultMessage + ' Хочете зіграти ще раз?')) {
+                    startGame();
+                }
+            } else {
+                // Користувач не вгадав, даємо підказку
+                let hint;
+                const difference = Math.abs(guess - secretNumber);
+                
+                if (difference > 50) {
+                    hint = 'дуже холодно';
+                } else if (difference > 30) {
+                    hint = 'холодно';
+                } else if (difference > 15) {
+                    hint = 'прохолодно';
+                } else if (difference > 8) {
+                    hint = 'тепло';
+                } else if (difference > 4) {
+                    hint = 'гаряче';
+                } else {
+                    hint = 'дуже гаряче';
+                }
+                
+                // Додаємо інформацію про тенденцію (тепліше/холодніше)
+                if (lastGuess !== null) {
+                    const prevDifference = Math.abs(lastGuess - secretNumber);
+                    if (difference < prevDifference) {
+                        hint += ', тепліше';
+                    } else if (difference > prevDifference) {
+                        hint += ', холодніше';
+                    }
+                }
+                
+                lastGuess = guess;
+                
+                // Повідомляємо користувача про результат і продовжуємо гру
+                alert(`${hint.charAt(0).toUpperCase() + hint.slice(1)}! Спробуйте ще раз.`);
+                makeGuess();
+            }
+        }
+        
+        // Прив'язка функції startGame до кнопки
+        document.getElementById('guessButton').addEventListener('click', startGame);
+    </script>
+</body>
+</html> 

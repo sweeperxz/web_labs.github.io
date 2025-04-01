@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота 1.21 - AJAX калькулятор</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .calculator {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="number"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border-left: 5px solid #4CAF50;
+            display: none;
+        }
+        
+        .result h2 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+        
+        .result p {
+            font-size: 18px;
+            margin-bottom: 0;
+        }
+        
+        .error {
+            color: #D32F2F;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .spinner {
+            display: none;
+            margin: 20px auto;
+            width: 40px;
+            height: 40px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #4CAF50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            text-align: center;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>AJAX Калькулятор квадрату числа</h1>
+    
+    <div class="calculator">
+        <div class="form-group">
+            <label for="inputNumber">Введіть число:</label>
+            <input type="number" id="inputNumber" placeholder="Наприклад: 7">
+        </div>
+        
+        <button id="calculateBtn">Обчислити квадрат</button>
+        
+        <div class="error" id="errorMessage">Будь ласка, введіть коректне число</div>
+        
+        <div class="spinner" id="spinner"></div>
+        
+        <div class="result" id="result">
+            <h2>Результат обчислення</h2>
+            <p id="resultText"></p>
+        </div>
+    </div>
+    
+    <a href="../index.html" class="back-link">Повернутися на головну</a>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputNumber = document.getElementById('inputNumber');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            const spinner = document.getElementById('spinner');
+            const result = document.getElementById('result');
+            const resultText = document.getElementById('resultText');
+            
+            // Функція для обчислення квадрату числа через AJAX запит до серверу
+            function calculateSquare() {
+                // Отримуємо введене значення
+                const number = inputNumber.value.trim();
+                
+                // Перевіряємо чи введене значення є числом
+                if (number === '' || isNaN(number)) {
+                    errorMessage.style.display = 'block';
+                    result.style.display = 'none';
+                    return;
+                }
+                
+                // Скидаємо повідомлення про помилку
+                errorMessage.style.display = 'none';
+                
+                // Показуємо індикатор завантаження
+                spinner.style.display = 'block';
+                result.style.display = 'none';
+                
+                // Імітуємо AJAX запит (оскільки немає реального серверу)
+                // В реальному випадку тут був би XMLHttpRequest або fetch до серверного скрипту
+                
+                // Створюємо об'єкт XMLHttpRequest
+                const xhr = new XMLHttpRequest();
+                
+                // Конфігуруємо його: GET-запит на URL
+                // У реальному проекті URL був би до серверного скрипту, наприклад "calculate_square.php"
+                // Оскільки у нас немає сервера, ми будемо імітувати відповідь
+                xhr.open('GET', 'dummy_server_response.txt', true);
+                
+                // Обробник загрузки відповіді
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        // Тут ми імітуємо обробку відповіді сервера
+                        // У реальному випадку це був би JSON або інший формат від сервера
+                        
+                        // Обчислюємо квадрат числа (імітація серверного обчислення)
+                        const square = number * number;
+                        
+                        // Формуємо текст відповіді
+                        const responseText = `Квадрат числа ${number} дорівнює ${square}`;
+                        
+                        // Виводимо результат
+                        resultText.textContent = responseText;
+                        result.style.display = 'block';
+                    } else {
+                        // При помилці запиту
+                        errorMessage.textContent = 'Помилка при виконанні запиту. Спробуйте ще раз.';
+                        errorMessage.style.display = 'block';
+                    }
+                    
+                    // Ховаємо індикатор завантаження
+                    spinner.style.display = 'none';
+                };
+                
+                // Обробник помилки
+                xhr.onerror = function() {
+                    errorMessage.textContent = 'Помилка з\'єднання. Перевірте підключення до інтернету.';
+                    errorMessage.style.display = 'block';
+                    spinner.style.display = 'none';
+                };
+                
+                // Імітуємо затримку сервера
+                setTimeout(function() {
+                    // Оскільки немає реального сервера, ми викличемо onload вручну
+                    const square = number * number;
+                    resultText.textContent = `Квадрат числа ${number} дорівнює ${square}`;
+                    result.style.display = 'block';
+                    spinner.style.display = 'none';
+                }, 800); // Затримка для імітації запиту
+                
+                // Відправка запиту
+                // У реальному випадку тут був би відправлений запит
+                // xhr.send();
+            }
+            
+            // Додаємо обробник події для кнопки
+            calculateBtn.addEventListener('click', calculateSquare);
+            
+            // Додаємо обробник події для поля вводу (щоб можна було натиснути Enter)
+            inputNumber.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    calculateSquare();
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

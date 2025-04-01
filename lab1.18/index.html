@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота 1.18 - Гра на jQuery</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #333;
+        }
+        .container {
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 90%;
+        }
+        h1 {
+            color: #2196F3;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .description {
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: #555;
+            font-size: 1.1em;
+        }
+        .start-button {
+            display: inline-block;
+            background-color: #2196F3;
+            color: white;
+            font-size: 1.2em;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        .start-button:hover {
+            background-color: #0b7dda;
+            transform: scale(1.05);
+        }
+        .back-link {
+            margin-top: 20px;
+            color: #2196F3;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Гра "Знайди числа"</h1>
+        <div class="description">
+            <p>Вітаємо у грі "Знайди числа"!</p>
+            <p>Ваше завдання — знайти та обрати числа від 1 до 20 у правильній послідовності.</p>
+            <p>У вас є 60 секунд, щоб завершити гру. Спробуйте зробити це якомога швидше!</p>
+        </div>
+        <a href="game.html" class="start-button">Почати гру</a>
+    </div>
+    <a href="../index.html" class="back-link">← Повернутися на головну</a>
+
+    <script>
+        $(document).ready(function() {
+            // Анімація при завантаженні сторінки
+            $(".container").hide().fadeIn(1000);
+            
+            // Анімація кнопки при наведенні
+            $(".start-button").hover(
+                function() { $(this).css("box-shadow", "0 5px 15px rgba(33, 150, 243, 0.4)"); },
+                function() { $(this).css("box-shadow", "none"); }
+            );
+        });
+    </script>
+</body>
+</html> 

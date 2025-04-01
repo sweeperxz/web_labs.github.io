@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гра "Знайди числа" - Лабораторна робота 1.18</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Гра "Знайди числа"</h1>
+            <div class="timer">Час: 60 сек.</div>
+        </header>
+
+        <div class="game-info">Знайдіть число 1</div>
+
+        <div class="game-board">
+            <!-- Тут будуть розміщені числа (генеруються скриптом) -->
+        </div>
+
+        <div class="controls">
+            <button id="restartGame" class="restart">Почати з початку</button>
+        </div>
+
+        <div class="stats-container">
+            <h2>Статистика спроб</h2>
+            <table id="statsTable">
+                <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Час</th>
+                        <th>Спроби</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Тут буде статистика (генерується скриптом) -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-link">← Повернутися на головну</a>
+
+    <!-- Модальне вікно при успішному завершенні гри -->
+    <div id="congratsModal" class="modal">
+        <div class="modal-content">
+            <h3>Вітаємо! Ви знайшли всі числа!</h3>
+            <p></p>
+            <div class="modal-buttons">
+                <button class="modal-restart">Спробувати ще раз</button>
+                <button class="modal-close">Закрити</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальне вікно при закінченні часу -->
+    <div id="timeoutModal" class="modal">
+        <div class="modal-content">
+            <h3>Час вичерпано!</h3>
+            <p>На жаль, ви не встигли знайти всі числа за відведений час.</p>
+            <div class="modal-buttons">
+                <button class="modal-restart">Спробувати ще раз</button>
+                <button class="modal-close">Закрити</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/game.js"></script>
+</body>
+</html> 

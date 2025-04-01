@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота 1.24 - React.js</title>
+    <!-- React и ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel для JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Шрифты -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .back-link {
+            display: block;
+            margin: 20px 0;
+            color: #1976d2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Стили для компонентов, похожих на Material UI */
+        .app-header {
+            background-color: #1976d2;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .app-header h1 {
+            font-size: 1.25rem;
+            margin: 0;
+        }
+        
+        .button {
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.02em;
+            transition: background-color 0.3s;
+        }
+        
+        .button:hover {
+            background-color: #1565c0;
+        }
+        
+        .button.text {
+            background-color: transparent;
+        }
+        
+        .button.text:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            padding: 16px;
+            flex-grow: 1;
+        }
+        
+        .card-actions {
+            padding: 8px 16px;
+            display: flex;
+            justify-content: flex-start;
+        }
+        
+        .paper {
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .container {
+            padding: 20px 0;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 12px 16px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #757575;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab.active {
+            color: #1976d2;
+            border-bottom-color: #1976d2;
+        }
+        
+        .tab-panel {
+            display: none;
+        }
+        
+        .tab-panel.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .text-field {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        .text-field:focus {
+            border-color: #1976d2;
+            outline: none;
+            box-shadow: 0 0 0 1px #1976d2;
+        }
+        
+        .text-field.error {
+            border-color: #d32f2f;
+        }
+        
+        .error-text {
+            color: #d32f2f;
+            font-size: 0.75rem;
+            margin-top: 4px;
+        }
+        
+        .list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .list-item {
+            padding: 12px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal {
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            width: 500px;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .modal-content {
+            padding: 16px 24px;
+        }
+        
+        .modal-footer {
+            padding: 8px 24px;
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .snackbar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #323232;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 4px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            min-width: 288px;
+            max-width: 568px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+        }
+        
+        .snackbar.success {
+            background-color: #43a047;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .success-icon {
+            color: #43a047;
+        }
+        
+        /* Адаптивный дизайн */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <a href="../index.html" class="back-link">← Повернутися на головну</a>
+        <div id="root"></div>
+    </div>
+
+    <script type="text/babel">
+        // Компонент табов
+        function TabPanel({ children, value, index }) {
+            return (
+                <div className={`tab-panel ${value === index ? 'active' : ''}`}>
+                    {children}
+                </div>
+            );
+        }
+
+        // Компонент формы обратной связи
+        function ContactForm() {
+            const [name, setName] = React.useState('');
+            const [email, setEmail] = React.useState('');
+            const [message, setMessage] = React.useState('');
+            const [errors, setErrors] = React.useState({});
+            const [showSnackbar, setShowSnackbar] = React.useState(false);
+
+            const validateForm = () => {
+                const newErrors = {};
+                if (!name.trim()) newErrors.name = "Ім'я обов'язкове";
+                if (!email.trim()) newErrors.email = "Email обов'язковий";
+                else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = "Некоректний email";
+                if (!message.trim()) newErrors.message = "Повідомлення обов'язкове";
+                
+                setErrors(newErrors);
+                return Object.keys(newErrors).length === 0;
+            };
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                if (validateForm()) {
+                    console.log("Форма надіслана:", { name, email, message });
+                    setName('');
+                    setEmail('');
+                    setMessage('');
+                    setShowSnackbar(true);
+                    setTimeout(() => setShowSnackbar(false), 5000);
+                }
+            };
+
+            return (
+                <div className="paper">
+                    <h2>Форма зворотного зв'язку</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                            <div className="form-group">
+                                <label htmlFor="name">Ім'я</label>
+                                <input
+                                    id="name"
+                                    type="text"
+                                    className={`text-field ${errors.name ? 'error' : ''}`}
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                                {errors.name && <div className="error-text">{errors.name}</div>}
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="email">Email</label>
+                                <input
+                                    id="email"
+                                    type="email"
+                                    className={`text-field ${errors.email ? 'error' : ''}`}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                                {errors.email && <div className="error-text">{errors.email}</div>}
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="message">Повідомлення</label>
+                            <textarea
+                                id="message"
+                                className={`text-field ${errors.message ? 'error' : ''}`}
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                                rows="4"
+                            ></textarea>
+                            {errors.message && <div className="error-text">{errors.message}</div>}
+                        </div>
+                        <button type="submit" className="button">Надіслати</button>
+                    </form>
+                    
+                    {showSnackbar && (
+                        <div className="snackbar success">
+                            <span>Повідомлення успішно надіслано!</span>
+                            <button 
+                                className="button text" 
+                                onClick={() => setShowSnackbar(false)}
+                                style={{ color: 'white' }}
+                            >
+                                Закрити
+                            </button>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Компонент карточки товара
+        function ProductCard({ product, onAddToCart }) {
+            return (
+                <div className="card">
+                    <img src={product.image} alt={product.name} className="card-image" />
+                    <div className="card-content">
+                        <h2>{product.name}</h2>
+                        <p>{product.description}</p>
+                        <h3 style={{ color: '#1976d2', marginTop: '16px' }}>{product.price} грн</h3>
+                    </div>
+                    <div className="card-actions">
+                        <button className="button" onClick={() => onAddToCart(product)}>
+                            Додати в кошик
+                        </button>
+                        <button className="button text" style={{ marginLeft: '8px' }}>
+                            Деталі
+                        </button>
+                    </div>
+                </div>
+            );
+        }
+
+        // Компонент корзины
+        function CartModal({ open, onClose, cartItems, onRemoveFromCart }) {
+            if (!open) return null;
+            
+            const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+            return (
+                <div className="modal-backdrop">
+                    <div className="modal">
+                        <div className="modal-header">
+                            <h2>Кошик</h2>
+                        </div>
+                        <div className="modal-content">
+                            {cartItems.length === 0 ? (
+                                <p>Ваш кошик порожній</p>
+                            ) : (
+                                <>
+                                    <ul className="list">
+                                        {cartItems.map((item) => (
+                                            <li key={item.id} className="list-item">
+                                                <div>
+                                                    <div><strong>{item.name}</strong></div>
+                                                    <div>{item.price} грн x {item.quantity}</div>
+                                                </div>
+                                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                    <span style={{ marginRight: '16px' }}>
+                                                        {item.price * item.quantity} грн
+                                                    </span>
+                                                    <button 
+                                                        onClick={() => onRemoveFromCart(item.id)}
+                                                        style={{ 
+                                                            background: 'none', 
+                                                            border: 'none', 
+                                                            cursor: 'pointer',
+                                                            color: '#757575'
+                                                        }}
+                                                    >
+                                                        <span className="material-icons">delete</span>
+                                                    </button>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <div style={{ textAlign: 'right', marginTop: '16px' }}>
+                                        <h3>Загальна сума: {totalPrice} грн</h3>
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                        <div className="modal-footer">
+                            <button className="button text" onClick={onClose}>
+                                Закрити
+                            </button>
+                            {cartItems.length > 0 && (
+                                <button className="button" style={{ marginLeft: '8px' }}>
+                                    Оформити замовлення
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Компонент списка продуктов
+        function ProductList({ products, onAddToCart }) {
+            return (
+                <div className="grid-container">
+                    {products.map((product) => (
+                        <ProductCard 
+                            key={product.id} 
+                            product={product} 
+                            onAddToCart={onAddToCart} 
+                        />
+                    ))}
+                </div>
+            );
+        }
+
+        // Главный компонент приложения
+        function App() {
+            const [activeTab, setActiveTab] = React.useState(0);
+            const [cartOpen, setCartOpen] = React.useState(false);
+            const [cartItems, setCartItems] = React.useState([]);
+            
+            // Список товаров
+            const products = [
+                {
+                    id: 1,
+                    name: "Смартфон XYZ",
+                    description: "Потужний смартфон з великим екраном та тривалим часом роботи батареї.",
+                    price: 8999,
+                    image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' height='140' width='300' fill='%231976d2'><rect width='100%' height='100%' fill='%23e1f5fe'/><text x='50%' y='50%' font-size='36' text-anchor='middle' dominant-baseline='middle' font-family='sans-serif'><tspan x='50%' dy='-10' fill='%231976d2'>Смартфон</tspan><tspan x='50%' dy='40' fill='%231976d2'><tspan style='font-family:Material Icons'>smartphone</tspan></tspan></text></svg>"
+                },
+                {
+                    id: 2,
+                    name: "Ноутбук ABC",
+                    description: "Легкий і потужний ноутбук для роботи та розваг.",
+                    price: 22999,
+                    image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' height='140' width='300' fill='%231976d2'><rect width='100%' height='100%' fill='%23e1f5fe'/><text x='50%' y='50%' font-size='36' text-anchor='middle' dominant-baseline='middle' font-family='sans-serif'><tspan x='50%' dy='-10' fill='%231976d2'>Ноутбук</tspan><tspan x='50%' dy='40' fill='%231976d2'><tspan style='font-family:Material Icons'>laptop</tspan></tspan></text></svg>"
+                },
+                {
+                    id: 3,
+                    name: "Навушники PRO",
+                    description: "Бездротові навушники з активним шумопоглинанням.",
+                    price: 3499,
+                    image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' height='140' width='300' fill='%231976d2'><rect width='100%' height='100%' fill='%23e1f5fe'/><text x='50%' y='50%' font-size='36' text-anchor='middle' dominant-baseline='middle' font-family='sans-serif'><tspan x='50%' dy='-10' fill='%231976d2'>Навушники</tspan><tspan x='50%' dy='40' fill='%231976d2'><tspan style='font-family:Material Icons'>headphones</tspan></tspan></text></svg>"
+                },
+                {
+                    id: 4,
+                    name: "Розумний годинник",
+                    description: "Стильний годинник з безліччю функцій для відстеження активності.",
+                    price: 4999,
+                    image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' height='140' width='300' fill='%231976d2'><rect width='100%' height='100%' fill='%23e1f5fe'/><text x='50%' y='50%' font-size='36' text-anchor='middle' dominant-baseline='middle' font-family='sans-serif'><tspan x='50%' dy='-10' fill='%231976d2'>Годинник</tspan><tspan x='50%' dy='40' fill='%231976d2'><tspan style='font-family:Material Icons'>watch</tspan></tspan></text></svg>"
+                },
+                {
+                    id: 5,
+                    name: "Планшет Ultra",
+                    description: "Тонкий і легкий планшет з яскравим дисплеєм.",
+                    price: 12499,
+                    image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' height='140' width='300' fill='%231976d2'><rect width='100%' height='100%' fill='%23e1f5fe'/><text x='50%' y='50%' font-size='36' text-anchor='middle' dominant-baseline='middle' font-family='sans-serif'><tspan x='50%' dy='-10' fill='%231976d2'>Планшет</tspan><tspan x='50%' dy='40' fill='%231976d2'><tspan style='font-family:Material Icons'>tablet</tspan></tspan></text></svg>"
+                },
+                {
+                    id: 6,
+                    name: "Фотоапарат HD",
+                    description: "Професійний фотоапарат для створення якісних знімків.",
+                    price: 18999,
+                    image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' height='140' width='300' fill='%231976d2'><rect width='100%' height='100%' fill='%23e1f5fe'/><text x='50%' y='50%' font-size='36' text-anchor='middle' dominant-baseline='middle' font-family='sans-serif'><tspan x='50%' dy='-10' fill='%231976d2'>Фотоапарат</tspan><tspan x='50%' dy='40' fill='%231976d2'><tspan style='font-family:Material Icons'>photo_camera</tspan></tspan></text></svg>"
+                }
+            ];
+
+            const handleAddToCart = (product) => {
+                setCartItems(prevItems => {
+                    const existingItem = prevItems.find(item => item.id === product.id);
+                    if (existingItem) {
+                        return prevItems.map(item => 
+                            item.id === product.id 
+                                ? { ...item, quantity: item.quantity + 1 } 
+                                : item
+                        );
+                    } else {
+                        return [...prevItems, { ...product, quantity: 1 }];
+                    }
+                });
+            };
+
+            const handleRemoveFromCart = (productId) => {
+                setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
+            };
+
+            return (
+                <div>
+                    <header className="app-header">
+                        <h1>Лабораторна робота 1.24 - React.js</h1>
+                        <button className="button text" onClick={() => setCartOpen(true)}>
+                            <span className="material-icons" style={{ marginRight: '8px' }}>
+                                shopping_cart
+                            </span>
+                            Кошик ({cartItems.reduce((sum, item) => sum + item.quantity, 0)})
+                        </button>
+                    </header>
+
+                    <div className="container">
+                        <h1 style={{ marginBottom: '20px' }}>Демонстрація React.js додатку</h1>
+                        
+                        <div className="tabs">
+                            <div 
+                                className={`tab ${activeTab === 0 ? 'active' : ''}`}
+                                onClick={() => setActiveTab(0)}
+                            >
+                                Магазин
+                            </div>
+                            <div 
+                                className={`tab ${activeTab === 1 ? 'active' : ''}`}
+                                onClick={() => setActiveTab(1)}
+                            >
+                                Контакти
+                            </div>
+                            <div 
+                                className={`tab ${activeTab === 2 ? 'active' : ''}`}
+                                onClick={() => setActiveTab(2)}
+                            >
+                                Про нас
+                            </div>
+                            <div 
+                                className={`tab ${activeTab === 3 ? 'active' : ''}`}
+                                onClick={() => setActiveTab(3)}
+                            >
+                                Хоббі
+                            </div>
+                        </div>
+
+                        <TabPanel value={activeTab} index={0}>
+                            <ProductList products={products} onAddToCart={handleAddToCart} />
+                        </TabPanel>
+                        
+                        <TabPanel value={activeTab} index={1}>
+                            <ContactForm />
+                        </TabPanel>
+                        
+                        <TabPanel value={activeTab} index={2}>
+                            <div className="paper">
+                                <h2>Про наш магазин</h2>
+                                <p>
+                                    Ласкаво просимо до нашого інтернет-магазину електроніки! Ми пропонуємо широкий асортимент сучасної техніки 
+                                    за конкурентними цінами.
+                                </p>
+                                <p>
+                                    Наша компанія була заснована в 2010 році та з тих пір стала одним з лідерів на ринку електроніки. 
+                                    Ми пишаємося тим, що пропонуємо нашим клієнтам тільки якісні товари та відмінний сервіс.
+                                </p>
+                                <p>
+                                    <strong>Наші переваги:</strong>
+                                </p>
+                                <ul className="list">
+                                    <li className="list-item">
+                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                            <span className="material-icons success-icon" style={{ marginRight: '8px' }}>
+                                                check_circle
+                                            </span>
+                                            Швидка доставка по всій Україні
+                                        </div>
+                                    </li>
+                                    <li className="list-item">
+                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                            <span className="material-icons success-icon" style={{ marginRight: '8px' }}>
+                                                check_circle
+                                            </span>
+                                            Гарантія на всі товари
+                                        </div>
+                                    </li>
+                                    <li className="list-item">
+                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                            <span className="material-icons success-icon" style={{ marginRight: '8px' }}>
+                                                check_circle
+                                            </span>
+                                            Професійні консультації від наших експертів
+                                        </div>
+                                    </li>
+                                    <li className="list-item">
+                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                            <span className="material-icons success-icon" style={{ marginRight: '8px' }}>
+                                                check_circle
+                                            </span>
+                                            Можливість оплати різними способами
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </TabPanel>
+                        
+                        <TabPanel value={activeTab} index={3}>
+                            <div className="paper">
+                                <h2>Моє хоббі</h2>
+                                <p>Ця сторінка демонструє використання класового та функціонального компонентів React.</p>
+                                
+                                <div style={{ 
+                                    display: 'grid', 
+                                    gridTemplateColumns: '1fr 1fr', 
+                                    gap: '20px',
+                                    marginTop: '20px'
+                                }}>
+                                    <ClassHobbyComponent />
+                                    <FunctionalHobbyComponent />
+                                </div>
+                            </div>
+                        </TabPanel>
+                    </div>
+
+                    <CartModal 
+                        open={cartOpen} 
+                        onClose={() => setCartOpen(false)} 
+                        cartItems={cartItems}
+                        onRemoveFromCart={handleRemoveFromCart}
+                    />
+                </div>
+            );
+        }
+
+        // Классовый компонент для отображения информации о хобби
+        class ClassHobbyComponent extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    showDetails: false,
+                    likes: 0
+                };
+            }
+            
+            toggleDetails = () => {
+                this.setState(prevState => ({
+                    showDetails: !prevState.showDetails
+                }));
+            }
+            
+            addLike = () => {
+                this.setState(prevState => ({
+                    likes: prevState.likes + 1
+                }));
+            }
+            
+            render() {
+                return (
+                    <div className="paper" style={{ 
+                        backgroundColor: '#f3e5f5',
+                        borderLeft: '4px solid #9c27b0'
+                    }}>
+                        <h3>Класовий компонент</h3>
+                        <h4>Фотографія</h4>
+                        <p>
+                            Фотографія - це мистецтво та практика створення зображень шляхом фіксації світла. 
+                            Це хоббі дозволяє зберегти моменти життя та виразити своє творче бачення.
+                        </p>
+                        
+                        <button 
+                            className="button" 
+                            onClick={this.toggleDetails}
+                            style={{ backgroundColor: '#9c27b0' }}
+                        >
+                            {this.state.showDetails ? 'Приховати деталі' : 'Показати деталі'}
+                        </button>
+                        
+                        {this.state.showDetails && (
+                            <div style={{ marginTop: '16px' }}>
+                                <h4>Чому це цікаво:</h4>
+                                <ul className="list">
+                                    <li className="list-item">Розвиває творче мислення та пошук краси в буденних речах</li>
+                                    <li className="list-item">Дозволяє експериментувати з різними жанрами та техніками</li>
+                                    <li className="list-item">Можливість ділитись своїми роботами з іншими</li>
+                                    <li className="list-item">Створення власних історій через візуальні образи</li>
+                                </ul>
+                            </div>
+                        )}
+                        
+                        <div style={{ 
+                            display: 'flex', 
+                            alignItems: 'center',
+                            marginTop: '16px'
+                        }}>
+                            <button 
+                                onClick={this.addLike}
+                                style={{ 
+                                    background: 'none',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    color: this.state.likes > 0 ? '#e91e63' : '#757575'
+                                }}
+                            >
+                                <span className="material-icons" style={{ fontSize: '24px' }}>
+                                    favorite
+                                </span>
+                            </button>
+                            <span style={{ marginLeft: '8px' }}>
+                                {this.state.likes} {this.state.likes === 1 ? 'вподобання' : 'вподобань'}
+                            </span>
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        // Функциональный компонент для отображения информации о хобби
+        function FunctionalHobbyComponent() {
+            const [showDetails, setShowDetails] = React.useState(false);
+            const [skills, setSkills] = React.useState([
+                { name: 'Початківець', active: true },
+                { name: 'Середній', active: false },
+                { name: 'Просунутий', active: false },
+                { name: 'Експерт', active: false }
+            ]);
+            
+            const toggleDetails = () => {
+                setShowDetails(prev => !prev);
+            };
+            
+            const setSkillLevel = (index) => {
+                setSkills(prevSkills => {
+                    return prevSkills.map((skill, i) => {
+                        return { ...skill, active: i <= index };
+                    });
+                });
+            };
+            
+            return (
+                <div className="paper" style={{ 
+                    backgroundColor: '#e3f2fd',
+                    borderLeft: '4px solid #2196f3'
+                }}>
+                    <h3>Функціональний компонент</h3>
+                    <h4>Програмування</h4>
+                    <p>
+                        Програмування - це процес створення програм та додатків за допомогою мов програмування.
+                        Це захоплююче хоббі, яке дозволяє втілювати свої ідеї в інтерактивні проекти.
+                    </p>
+                    
+                    <button 
+                        className="button" 
+                        onClick={toggleDetails}
+                        style={{ backgroundColor: '#2196f3' }}
+                    >
+                        {showDetails ? 'Приховати деталі' : 'Показати деталі'}
+                    </button>
+                    
+                    {showDetails && (
+                        <div style={{ marginTop: '16px' }}>
+                            <h4>Переваги програмування як хоббі:</h4>
+                            <ul className="list">
+                                <li className="list-item">Створення власних проектів та додатків</li>
+                                <li className="list-item">Постійне вивчення нових технологій</li>
+                                <li className="list-item">Вирішення логічних задач та головоломок</li>
+                                <li className="list-item">Можливість автоматизувати рутинні задачі</li>
+                            </ul>
+                        </div>
+                    )}
+                    
+                    <div style={{ marginTop: '16px' }}>
+                        <h4>Рівень навичок:</h4>
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                            {skills.map((skill, index) => (
+                                <button 
+                                    key={skill.name}
+                                    onClick={() => setSkillLevel(index)}
+                                    className="button"
+                                    style={{ 
+                                        backgroundColor: skill.active ? '#2196f3' : '#e0e0e0',
+                                        color: skill.active ? 'white' : '#757575'
+                                    }}
+                                >
+                                    {skill.name}
+                                </button>
+                            ))}
+                        </div>
+                        <p style={{ marginTop: '8px' }}>
+                            Поточний рівень: <strong>{skills.filter(s => s.active).pop().name}</strong>
+                        </p>
+                    </div>
+                </div>
+            );
+        }
+
+        // Рендеринг приложения
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+    <div style="text-align: center; margin-top: 30px; padding: 10px;">
+        <p>Также доступна <a href="cra-version/build/index.html" style="color: #2196f3; text-decoration: none;">версия приложения на CRA</a> (требуется сборка).</p>
+        <p style="font-size: 0.8em; color: #757575;">Для просмотра CRA версии необходимо выполнить сборку: перейдите в каталог lab1.24/cra-version, запустите команды npm install и npm run build</p>
+    </div>
+</body>
+</html> 

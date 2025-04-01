@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота 1.19 - Моя друга гра</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #333;
+        }
+        .container {
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 90%;
+        }
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            color: #777;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .description {
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: #555;
+            font-size: 1.1em;
+        }
+        .start-button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.2em;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        .start-button:hover {
+            background-color: #388E3C;
+            transform: scale(1.05);
+        }
+        .back-link {
+            margin-top: 20px;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Моя друга гра</h1>
+        <div class="subtitle">Гра на пошук та перетягування зображень</div>
+        <div class="description">
+            <p>Вітаємо у грі на перетягування зображень!</p>
+            <p>У цій грі вам потрібно знаходити співпадіння між зображенням в "полі поточної картинки" та одним із зображень на ігровому полі.</p>
+            <p>Коли ви знайдете співпадіння, просто перетягніть поточне зображення на відповідне зображення в ігровому полі.</p>
+            <p>Виберіть категорію зображень та почніть гру!</p>
+        </div>
+        <a href="game.html?category=animals" class="start-button">Тварини</a>
+        <a href="game.html?category=insects" class="start-button" style="background-color: #FF9800; margin-left: 10px;">Комахи</a>
+        <a href="game.html?category=fish" class="start-button" style="background-color: #2196F3; margin-left: 10px;">Риби</a>
+    </div>
+    <a href="../index.html" class="back-link">← Повернутися на головну</a>
+
+    <script>
+        $(document).ready(function() {
+            // Анімація при завантаженні сторінки
+            $(".container").hide().fadeIn(1000);
+            
+            // Анімація кнопок при наведенні
+            $(".start-button").hover(
+                function() { $(this).css("box-shadow", "0 5px 15px rgba(0,0,0,0.3)"); },
+                function() { $(this).css("box-shadow", "none"); }
+            );
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота 1.15</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .task {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+        .task h2 {
+            margin-top: 0;
+            border-bottom: 2px solid #2196F3;
+            padding-bottom: 5px;
+        }
+        .result {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            min-height: 30px;
+        }
+        button {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0b7dda;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #2196F3;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Лабораторна робота 1.15</h1>
+
+    <div class="task">
+        <h2>Завдання 1</h2>
+        <p>З допомогою циклу while вивести всі прості числа в проміжку від 0 до 100</p>
+        <button onclick="task1()">Виконати завдання 1</button>
+        <div class="result" id="result1"></div>
+    </div>
+
+    <div class="task">
+        <h2>Завдання 2</h2>
+        <p>З допомогою циклу do…while написати функцію для виведення чисел від 0 до 10.</p>
+        <button onclick="task2()">Виконати завдання 2</button>
+        <div class="result" id="result2"></div>
+    </div>
+
+    <div class="task">
+        <h2>Завдання 3</h2>
+        <p>Дано число numb = 10000. Діліть його на 2 стільки раз, поки результат ділення не стане менше 50.</p>
+        <button onclick="task3()">Виконати завдання 3</button>
+        <div class="result" id="result3"></div>
+    </div>
+
+    <div class="task">
+        <h2>Завдання 4</h2>
+        <p>В змінній month лежить число з діапазону від 1 до 12. Визначте пору року та назву місяця.</p>
+        <button onclick="task4()">Виконати завдання 4</button>
+        <div class="result" id="result4"></div>
+    </div>
+
+    <div class="task">
+        <h2>Завдання 5</h2>
+        <p>Задати температуру в градусах за Цельсієм. Вивести відповідну температуру в градусах за Фаренгейтом.</p>
+        <button onclick="task5()">Виконати завдання 5</button>
+        <div class="result" id="result5"></div>
+    </div>
+
+    <div class="task">
+        <h2>Завдання 6</h2>
+        <p>Отримати число від 1 до 7, і вивести день неділі, якому відповідає задане число.</p>
+        <button onclick="task6()">Виконати завдання 6</button>
+        <div class="result" id="result6"></div>
+    </div>
+
+    <a href="../index.html" class="back-link">← Повернутися на головну</a>
+
+    <script>
+        // Завдання 1: Прості числа від 0 до 100
+        function task1() {
+            let result = "";
+            let i = 2;
+
+            function isPrime(num) {
+                if (num < 2) return false;
+                for (let j = 2; j <= Math.sqrt(num); j++) {
+                    if (num % j === 0) return false;
+                }
+                return true;
+            }
+
+            while (i <= 100) {
+                if (isPrime(i)) {
+                    result += i + " ";
+                }
+                i++;
+            }
+
+            document.getElementById("result1").innerText = result;
+        }
+
+        // Завдання 2: Виведення чисел від 0 до 10
+        function task2() {
+            let result = "";
+            let i = 0;
+            
+            do {
+                if (i === 0) {
+                    result += i + " - це нуль<br>";
+                } else if (i % 2 === 0) {
+                    result += i + " - парне число<br>";
+                } else {
+                    result += i + " - непарне число<br>";
+                }
+                i++;
+            } while (i <= 10);
+
+            document.getElementById("result2").innerHTML = result;
+        }
+
+        // Завдання 3: Ділення числа на 2
+        function task3() {
+            let numb = 10000;
+            let result = numb;
+            let counter = 0;
+
+            while (result >= 50) {
+                result = result / 2;
+                counter++;
+            }
+
+            document.getElementById("result3").innerHTML = 
+                "Результат: " + result + "<br>Кількість ітерацій: " + counter;
+        }
+
+        // Завдання 4: Визначення пори року та назви місяця
+        function task4() {
+            const month = prompt("Введіть номер місяця (від 1 до 12):");
+            
+            if (month < 1 || month > 12 || isNaN(month)) {
+                alert("Введіть коректний номер місяця від 1 до 12");
+                return;
+            }
+
+            let season = "";
+            let monthName = "";
+
+            switch (parseInt(month)) {
+                case 12:
+                case 1:
+                case 2:
+                    season = "зима";
+                    if (month == 12) monthName = "грудень";
+                    else if (month == 1) monthName = "січень";
+                    else monthName = "лютий";
+                    break;
+                case 3:
+                case 4:
+                case 5:
+                    season = "весна";
+                    if (month == 3) monthName = "березень";
+                    else if (month == 4) monthName = "квітень";
+                    else monthName = "травень";
+                    break;
+                case 6:
+                case 7:
+                case 8:
+                    season = "літо";
+                    if (month == 6) monthName = "червень";
+                    else if (month == 7) monthName = "липень";
+                    else monthName = "серпень";
+                    break;
+                case 9:
+                case 10:
+                case 11:
+                    season = "осінь";
+                    if (month == 9) monthName = "вересень";
+                    else if (month == 10) monthName = "жовтень";
+                    else monthName = "листопад";
+                    break;
+            }
+
+            alert("Місяць: " + monthName + "\nПора року: " + season);
+            document.getElementById("result4").innerText = 
+                "Місяць: " + monthName + "\nПора року: " + season;
+        }
+
+        // Завдання 5: Конвертація температури з Цельсія у Фаренгейт
+        function task5() {
+            const celsius = prompt("Введіть температуру в градусах Цельсія:");
+            
+            if (isNaN(celsius)) {
+                alert("Будь ласка, введіть коректне число!");
+                return;
+            }
+
+            const fahrenheit = (9/5) * parseFloat(celsius) + 32;
+            
+            alert(celsius + "°C = " + fahrenheit.toFixed(2) + "°F");
+            document.getElementById("result5").innerText = 
+                celsius + "°C = " + fahrenheit.toFixed(2) + "°F";
+        }
+
+        // Завдання 6: Виведення дня тижня за номером
+        function task6() {
+            const dayNumber = prompt("Введіть номер дня тижня (від 1 до 7):");
+            
+            if (dayNumber < 1 || dayNumber > 7 || isNaN(dayNumber)) {
+                alert("Введіть коректний номер дня від 1 до 7");
+                return;
+            }
+
+            let dayName = "";
+
+            switch (parseInt(dayNumber)) {
+                case 1: dayName = "Понеділок"; break;
+                case 2: dayName = "Вівторок"; break;
+                case 3: dayName = "Середа"; break;
+                case 4: dayName = "Четвер"; break;
+                case 5: dayName = "П'ятниця"; break;
+                case 6: dayName = "Субота"; break;
+                case 7: dayName = "Неділя"; break;
+            }
+
+            alert("День тижня: " + dayName);
+            document.getElementById("result6").innerText = "День тижня: " + dayName;
+        }
+    </script>
+</body>
+</html> 

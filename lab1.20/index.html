@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота 1.20 - Калькулятор</title>
+</head>
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Створюємо всі елементи за допомогою JavaScript
+            
+            // Контейнер для калькулятора
+            const calculatorContainer = document.createElement('div');
+            calculatorContainer.id = 'calculator';
+            
+            // Заголовок
+            const header = document.createElement('h1');
+            header.textContent = 'Калькулятор';
+            
+            // Поле для відображення результату
+            const display = document.createElement('div');
+            display.id = 'display';
+            
+            // Основний екран для відображення поточного виразу
+            const displayMain = document.createElement('div');
+            displayMain.id = 'display-main';
+            displayMain.textContent = '0';
+            
+            // Історія операцій
+            const displayHistory = document.createElement('div');
+            displayHistory.id = 'display-history';
+            displayHistory.textContent = '';
+            
+            // Додаємо обидва елементи відображення до основного display
+            display.appendChild(displayHistory);
+            display.appendChild(displayMain);
+            
+            // Контейнер кнопок
+            const buttonsContainer = document.createElement('div');
+            buttonsContainer.id = 'buttons';
+            
+            // Кнопки калькулятора
+            const buttonValues = [
+                'C', '←', '%', '/',
+                '7', '8', '9', '*',
+                '4', '5', '6', '-',
+                '1', '2', '3', '+',
+                '±', '0', '.', '='
+            ];
+            
+            // Створюємо кнопки
+            buttonValues.forEach(value => {
+                const button = document.createElement('button');
+                button.textContent = value;
+                button.dataset.value = value;
+                
+                // Додаємо класи до кнопок за їх типом
+                if ('0123456789.'.includes(value)) {
+                    button.classList.add('number');
+                } else if ('+-*/'.includes(value)) {
+                    button.classList.add('operation');
+                } else if (value === '=') {
+                    button.classList.add('equals');
+                } else if (value === 'C') {
+                    button.classList.add('clear');
+                } else if (value === '←') {
+                    button.classList.add('backspace');
+                } else if (value === '%') {
+                    button.classList.add('percent');
+                } else if (value === '±') {
+                    button.classList.add('toggle-sign');
+                }
+                
+                // Додаємо обробник кліку
+                button.addEventListener('click', handleButtonClick);
+                
+                // Додаємо кнопку до контейнера
+                buttonsContainer.appendChild(button);
+            });
+            
+            // Посилання для повернення на головну
+            const backLink = document.createElement('a');
+            backLink.href = '../index.html';
+            backLink.textContent = '← Повернутися на головну';
+            backLink.classList.add('back-link');
+            
+            // Додаємо всі елементи до DOM
+            calculatorContainer.appendChild(header);
+            calculatorContainer.appendChild(display);
+            calculatorContainer.appendChild(buttonsContainer);
+            document.body.appendChild(calculatorContainer);
+            document.body.appendChild(backLink);
+            
+            // Додавання стилів програмно
+            const style = document.createElement('style');
+            style.textContent = `
+                body {
+                    font-family: 'Arial', sans-serif;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100vh;
+                    margin: 0;
+                    background-color: #f5f5f5;
+                    color: #333;
+                }
+                
+                #calculator {
+                    background-color: #fff;
+                    border-radius: 10px;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                    width: 320px;
+                    padding: 20px;
+                    margin-bottom: 20px;
+                }
+                
+                h1 {
+                    text-align: center;
+                    color: #333;
+                    margin-top: 0;
+                    margin-bottom: 20px;
+                    font-size: 24px;
+                }
+                
+                #display {
+                    background-color: #f9f9f9;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    padding: 10px;
+                    margin-bottom: 15px;
+                    text-align: right;
+                }
+                
+                #display-main {
+                    font-size: 28px;
+                    margin-top: 5px;
+                    min-height: 36px;
+                }
+                
+                #display-history {
+                    font-size: 14px;
+                    color: #777;
+                    min-height: 20px;
+                }
+                
+                #buttons {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 10px;
+                }
+                
+                button {
+                    border: none;
+                    border-radius: 5px;
+                    padding: 15px;
+                    font-size: 18px;
+                    cursor: pointer;
+                    background-color: #f0f0f0;
+                    transition: background-color 0.2s, transform 0.1s;
+                }
+                
+                button:hover {
+                    background-color: #e0e0e0;
+                }
+                
+                button:active {
+                    transform: scale(0.95);
+                }
+                
+                .operation {
+                    background-color: #ff9800;
+                    color: white;
+                }
+                
+                .operation:hover {
+                    background-color: #f57c00;
+                }
+                
+                .equals {
+                    background-color: #4caf50;
+                    color: white;
+                }
+                
+                .equals:hover {
+                    background-color: #388e3c;
+                }
+                
+                .clear, .backspace {
+                    background-color: #f44336;
+                    color: white;
+                }
+                
+                .clear:hover, .backspace:hover {
+                    background-color: #d32f2f;
+                }
+                
+                .percent, .toggle-sign {
+                    background-color: #9e9e9e;
+                    color: white;
+                }
+                
+                .percent:hover, .toggle-sign:hover {
+                    background-color: #757575;
+                }
+                
+                .back-link {
+                    color: #2196F3;
+                    text-decoration: none;
+                    margin-top: 20px;
+                }
+                
+                .back-link:hover {
+                    text-decoration: underline;
+                }
+                
+                /* Адаптивний дизайн */
+                @media (max-width: 360px) {
+                    #calculator {
+                        width: 90%;
+                        padding: 15px;
+                    }
+                    
+                    button {
+                        padding: 12px;
+                        font-size: 16px;
+                    }
+                    
+                    #display-main {
+                        font-size: 24px;
+                    }
+                }
+                
+                @media (max-height: 600px) {
+                    #calculator {
+                        margin-top: 10px;
+                        padding: 10px;
+                    }
+                    
+                    button {
+                        padding: 10px;
+                    }
+                    
+                    h1 {
+                        margin-bottom: 10px;
+                        font-size: 20px;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Змінні для зберігання стану калькулятора
+            let currentInput = '0';
+            let previousInput = '';
+            let operation = null;
+            let shouldResetInput = false;
+            
+            // Функція обробки кліку на кнопку
+            function handleButtonClick(event) {
+                const value = event.target.dataset.value;
+                
+                switch (value) {
+                    case 'C':
+                        resetCalculator();
+                        break;
+                    case '←':
+                        handleBackspace();
+                        break;
+                    case '±':
+                        toggleSign();
+                        break;
+                    case '%':
+                        calculatePercent();
+                        break;
+                    case '=':
+                        calculate();
+                        break;
+                    case '+':
+                    case '-':
+                    case '*':
+                    case '/':
+                        handleOperation(value);
+                        break;
+                    case '.':
+                        appendDecimal();
+                        break;
+                    default:
+                        appendNumber(value);
+                        break;
+                }
+                
+                updateDisplay();
+            }
+            
+            // Скидання калькулятора
+            function resetCalculator() {
+                currentInput = '0';
+                previousInput = '';
+                operation = null;
+                shouldResetInput = false;
+            }
+            
+            // Обробка видалення останнього символу
+            function handleBackspace() {
+                if (currentInput.length === 1 || (currentInput.length === 2 && currentInput[0] === '-')) {
+                    currentInput = '0';
+                } else {
+                    currentInput = currentInput.slice(0, -1);
+                }
+            }
+            
+            // Зміна знаку
+            function toggleSign() {
+                currentInput = (parseFloat(currentInput) * -1).toString();
+            }
+            
+            // Обчислення відсотка
+            function calculatePercent() {
+                currentInput = (parseFloat(currentInput) / 100).toString();
+            }
+            
+            // Обробка операцій
+            function handleOperation(op) {
+                if (operation && !shouldResetInput) {
+                    calculate();
+                }
+                
+                previousInput = currentInput;
+                operation = op;
+                shouldResetInput = true;
+            }
+            
+            // Додавання десяткової точки
+            function appendDecimal() {
+                if (shouldResetInput) {
+                    currentInput = '0.';
+                    shouldResetInput = false;
+                } else if (!currentInput.includes('.')) {
+                    currentInput += '.';
+                }
+            }
+            
+            // Додавання цифр
+            function appendNumber(number) {
+                if (currentInput === '0' || shouldResetInput) {
+                    currentInput = number;
+                    shouldResetInput = false;
+                } else {
+                    currentInput += number;
+                }
+            }
+            
+            // Обчислення результату
+            function calculate() {
+                if (!operation || shouldResetInput) return;
+                
+                const prev = parseFloat(previousInput);
+                const current = parseFloat(currentInput);
+                let result = 0;
+                
+                switch (operation) {
+                    case '+':
+                        result = prev + current;
+                        break;
+                    case '-':
+                        result = prev - current;
+                        break;
+                    case '*':
+                        result = prev * current;
+                        break;
+                    case '/':
+                        result = prev / current;
+                        break;
+                }
+                
+                // Формуємо історію операцій
+                displayHistory.textContent = `${previousInput} ${operation} ${currentInput} =`;
+                
+                currentInput = result.toString();
+                operation = null;
+                shouldResetInput = true;
+            }
+            
+            // Оновлення відображення
+            function updateDisplay() {
+                displayMain.textContent = currentInput;
+            }
+        });
+    </script>
+</body>
+</html> 
